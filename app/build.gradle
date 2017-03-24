@@ -1,0 +1,24 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion project.sdk
+    buildToolsVersion project.buildTools
+
+    defaultConfig {
+        minSdkVersion project.minSdk
+        targetSdkVersion project.sdk
+
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+dependencies {
+    compile "com.android.support:appcompat-v7:" + project.supportVersion
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile project(':camerafragment')
+    compile 'com.github.clans:fab:1.6.4'
+    compile 'com.github.Mariovc:ImagePicker:1.0.5'
+    compile 'com.flurgle:camerakit:0.9.15'
+    compile 'com.github.chrisbanes:PhotoView:1.3.1'
+}

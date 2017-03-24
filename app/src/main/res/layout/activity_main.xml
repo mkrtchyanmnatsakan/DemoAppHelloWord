@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+             xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <Button
+        android:id="@+id/addCameraButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        tools:visibility="gone"
+        android:text="Add camera" />
+
+    <RelativeLayout
+        android:id="@+id/cameraLayout"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+
+
+
+
+
+
+        <com.github.florent37.camerafragment.sample.MapView
+            android:id="@+id/surfaceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.github.florent37.camerafragment.sample.MapView>
+
+
+        <ImageView
+
+            android:scaleType="centerCrop"
+            android:id="@+id/transparet_efect_imageView"
+            android:layout_width="wrap_content"
+            android:alpha="0.5"
+            android:layout_height="wrap_content"
+            android:src="@drawable/naruto"/>
+
+        <!--android:background="#82000000"-->
+        <RelativeLayout
+            android:id="@+id/record_panel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+
+
+
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp">
+
+
+                <com.github.florent37.camerafragment.widgets.CameraSettingsView
+                    android:id="@+id/settings_view"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+
+                    />
+
+
+                <TextView
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="00:00"
+                    android:id="@+id/record_duration_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/settings_view"
+                    android:textColor="@android:color/white"
+                    android:textSize="14dp"
+                    android:visibility="invisible" />
+
+
+            </LinearLayout>
+
+
+
+            <com.github.florent37.camerafragment.widgets.FlashSwitchView
+                android:layout_marginTop="10dp"
+                android:id="@+id/flash_switch_view"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+
+
+                />
+
+            <com.github.florent37.camerafragment.widgets.CameraSwitchView
+                android:layout_marginTop="10dp"
+                android:id="@+id/front_back_camera_switcher"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                />
+
+
+            <com.github.florent37.camerafragment.widgets.RecordButton
+                android:id="@+id/record_button"
+                android:layout_alignParentBottom="true"
+                android:layout_width="75dp"
+                android:layout_marginBottom="10dp"
+                android:layout_height="75dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp" />
+
+
+
+            <TextView
+                android:id="@+id/record_size_mb_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/record_button"
+                android:textColor="@android:color/white"
+                android:textSize="14dp"
+                android:visibility="invisible" />
+
+            <com.github.florent37.camerafragment.widgets.MediaActionSwitchView
+                android:id="@+id/photo_video_camera_switcher"
+                android:layout_alignParentBottom="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                android:checked="false"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp" />
+
+
+            <com.github.clans.fab.FloatingActionMenu
+                android:id="@+id/menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                fab:menu_labels_style="@style/MenuLabelsStyle"
+                fab:menu_labels_showAnimation="@anim/jump_from_down"
+                fab:menu_labels_hideAnimation="@anim/jump_to_down"
+                fab:menu_animationDelayPerItem="0"
+                fab:menu_shadowColor="#444"
+                fab:menu_colorNormal="@color/colorPrimary"
+                fab:menu_colorPressed="#444"
+                fab:menu_colorRipple="@color/colorPrimary">
+
+
+
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/my_album_fab"
+                    android:visibility="visible"
+                    fab:fab_label="My Albums"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_photo_library_black_24dp"
+                    style="@style/MenuButtonsStyle" />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/plus_fab"
+                    android:visibility="visible"
+                    fab:fab_label="Raise alpha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_plus"
+                    style="@style/MenuButtonsStyle" />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/minus_fab"
+                    android:visibility="visible"
+                    fab:fab_label="Low down alpha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_minus"
+                    style="@style/MenuButtonsStyle" />
+
+
+
+                <com.github.clans.fab.FloatingActionButton
+
+                    android:id="@+id/rotation_by_5_fab"
+                    android:layout_width="wrap_content"
+                    android:visibility="visible"
+                    fab:fab_label="Rotation right 1"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_rotation_right"
+                    style="@style/MenuButtonsStyle" />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/replay_by_5_fab"
+                    android:layout_width="wrap_content"
+                    android:visibility="visible"
+                    fab:fab_label="Rotation left 1"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_rotation_left"
+                    style="@style/MenuButtonsStyle" />
+
+
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/rotation_fab"
+                    android:visibility="visible"
+                    fab:fab_label="Automatic rotation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_rotation"
+                    style="@style/MenuButtonsStyle" />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/settings_fab"
+                    android:visibility="visible"
+                    fab:fab_label="Settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_settings"
+                    style="@style/MenuButtonsStyle" />
+
+
+
+
+
+            </com.github.clans.fab.FloatingActionMenu>
+
+
+
+
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>
