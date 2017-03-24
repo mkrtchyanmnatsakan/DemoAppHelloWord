@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FloatingActionButton albumFab;
     FloatingActionButton cameraFab;
     FloatingActionButton automaticRotationFab;
+    FloatingActionButton startPaintFab;
     FloatingActionButton rotationBy5Fab;
     FloatingActionButton replayBy5Fab;
     FloatingActionButton plusFab;
@@ -112,6 +113,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+
+        if (Build.VERSION.SDK_INT > 15) {
+            final String[] permissions = {
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE};
+
+            final List<String> permissionsToRequest = new ArrayList<>();
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                    permissionsToRequest.add(permission);
+                }
+            }
+            if (!permissionsToRequest.isEmpty()) {
+                ActivityCompat.requestPermissions(this, permissionsToRequest.toArray(new String[permissionsToRequest.size()]), REQUEST_CAMERA_PERMISSIONS);
+            } else addCamera();
+        } else {
+            addCamera();
+        }
 
 
         /////////////////////////////////
@@ -148,8 +170,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         ImagePicker.setMinQuality(800, 600);
-        //        photoFab = (FloatingActionButton) findViewById(R.id.photo_fab);
-//        photoFab.setOnClickListener(this);
+                photoFab = (FloatingActionButton) findViewById(R.id.camera_fab);
+        photoFab.setOnClickListener(this);
 
         albumFab = (FloatingActionButton) findViewById(R.id.my_album_fab);
         albumFab.setOnClickListener(this);
@@ -173,10 +195,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // countOfScans = db.getCountofPictures();
         menu = (FloatingActionMenu) findViewById(R.id.menu);
         menu.setOnClickListener(this);
+
+        startPaintFab = (FloatingActionButton) findViewById(R.id.start_paint_fab);
+        startPaintFab.setOnClickListener(this);
         //  galleryFab = (FloatingActionButton) findViewById(R.id.gallery_fab);
 
 
         ////////////////////////////////////
+
+       // flashSwitchView.displayFlashOff();
+
 
 
     }
@@ -213,8 +241,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                        public void onPhotoTaken(byte[] bytes, String filePath) {
 
 
-                                                           transparentEffectImg.setImageBitmap(getBitmapFromPath(filePath));;
 
+
+                                                        //   transparentEffectImg.setImageBitmap(getBitmapFromPath(filePath));
+                                                                        transparentEffectImg.setImageBitmap(scaleDown(getBitmapFromPath(filePath),800,true));
                                                            /** To DO*/
 
 
@@ -246,25 +276,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @OnClick(R.id.addCameraButton)
     public void onAddCameraClicked() {
-        if (Build.VERSION.SDK_INT > 15) {
-            final String[] permissions = {
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.RECORD_AUDIO,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE};
-
-            final List<String> permissionsToRequest = new ArrayList<>();
-            for (String permission : permissions) {
-                if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                    permissionsToRequest.add(permission);
-                }
-            }
-            if (!permissionsToRequest.isEmpty()) {
-                ActivityCompat.requestPermissions(this, permissionsToRequest.toArray(new String[permissionsToRequest.size()]), REQUEST_CAMERA_PERMISSIONS);
-            } else addCamera();
-        } else {
-            addCamera();
-        }
+//        if (Build.VERSION.SDK_INT > 15) {
+//            final String[] permissions = {
+//                    Manifest.permission.CAMERA,
+//                    Manifest.permission.RECORD_AUDIO,
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                    Manifest.permission.READ_EXTERNAL_STORAGE};
+//
+//            final List<String> permissionsToRequest = new ArrayList<>();
+//            for (String permission : permissions) {
+//                if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+//                    permissionsToRequest.add(permission);
+//                }
+//            }
+//            if (!permissionsToRequest.isEmpty()) {
+//                ActivityCompat.requestPermissions(this, permissionsToRequest.toArray(new String[permissionsToRequest.size()]), REQUEST_CAMERA_PERMISSIONS);
+//            } else addCamera();
+//        } else {
+//            addCamera();
+//        }
     }
 
     @Override
@@ -541,13 +571,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
-//            case R.id.photo_fab:
-//                Intent intent = new Intent();
-//                intent.setType("image/*");
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                startActivityForResult(Intent.createChooser(intent,
-//                        "Select Picture"), 1);
-//                break;
+
+
+            case R.id.start_paint_fab:
+                menu.close(true);
+                recordButton.setVisibility(View.GONE);
+                break;
+
+            case R.id.camera_fab:
+                menu.close(true);
+                flashSwitchView.displayFlashOn();
+                recordButton.setVisibility(View.VISIBLE);
+                cameraSwitchView.setVisibility(View.VISIBLE);
+
+
+                break;
 
             case R.id.rotation_fab:
                 toggleRotation();

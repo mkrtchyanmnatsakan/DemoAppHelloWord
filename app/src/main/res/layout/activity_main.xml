@@ -9,7 +9,12 @@
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+
+
+    </FrameLayout>
+
 
     <Button
         android:id="@+id/addCameraButton"
@@ -53,6 +58,7 @@
 
 
             <LinearLayout
+                android:visibility="invisible"
                 android:layout_marginTop="10dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
@@ -67,6 +73,7 @@
                     android:id="@+id/settings_view"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
 
@@ -108,9 +115,8 @@
                 android:id="@+id/front_back_camera_switcher"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
-                />
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp" />
 
 
 
@@ -134,6 +140,7 @@
                 android:layout_height="40dp"
                 android:layout_marginBottom="10dp"
                 android:checked="false"
+                android:visibility="invisible"
                 android:gravity="center"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="24dp"
@@ -141,21 +148,21 @@
 
             <com.github.florent37.camerafragment.widgets.RecordButton
                 android:id="@+id/record_button"
+                android:visibility="gone"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="10dp"
                 android:layout_centerInParent="true"
-                android:layout_below="@+id/menu"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
+                android:layout_width="80dp"
+                android:layout_height="80dp"/>
 
 
             <com.github.clans.fab.FloatingActionMenu
                 android:id="@+id/menu"
-                android:layout_width="wrap_content"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_alignParentBottom="true"
                 android:layout_marginTop="10dp"
                 fab:menu_labels_style="@style/MenuLabelsStyle"
                 fab:menu_labels_showAnimation="@anim/jump_from_down"
@@ -170,18 +177,27 @@
 
 
                 <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/my_album_fab"
+                    android:id="@+id/camera_fab"
                     android:visibility="visible"
-                    fab:fab_label="My Albums"
+                    fab:fab_label="Camera"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_photo_library_black_24dp"
+                    android:src="@drawable/ic_camera"
+                    style="@style/MenuButtonsStyle" />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/my_album_fab"
+                    android:visibility="visible"
+                    fab:fab_label="Albums"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_album"
                     style="@style/MenuButtonsStyle" />
 
                 <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/plus_fab"
                     android:visibility="visible"
-                    fab:fab_label="Raise alpha"
+                    fab:fab_label="Alpha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_plus"
@@ -190,7 +206,7 @@
                 <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/minus_fab"
                     android:visibility="visible"
-                    fab:fab_label="Low down alpha"
+                    fab:fab_label="Alpha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_minus"
@@ -203,18 +219,18 @@
                     android:id="@+id/rotation_by_5_fab"
                     android:layout_width="wrap_content"
                     android:visibility="visible"
-                    fab:fab_label="Rotation right 1"
+                    fab:fab_label="Right 1"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_rotation_right"
+                    android:src="@drawable/ic_rotate_right"
                     style="@style/MenuButtonsStyle" />
 
                 <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/replay_by_5_fab"
                     android:layout_width="wrap_content"
                     android:visibility="visible"
-                    fab:fab_label="Rotation left 1"
+                    fab:fab_label="Left 1"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_rotation_left"
+                    android:src="@drawable/ic_rotate_left"
                     style="@style/MenuButtonsStyle" />
 
 
@@ -222,19 +238,19 @@
                 <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/rotation_fab"
                     android:visibility="visible"
-                    fab:fab_label="Automatic rotation"
+                    fab:fab_label="Automatic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_rotation"
+                    android:src="@drawable/ic_auto_rotate"
                     style="@style/MenuButtonsStyle" />
 
                 <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/settings_fab"
+                    android:id="@+id/start_paint_fab"
                     android:visibility="visible"
-                    fab:fab_label="Settings"
+                    fab:fab_label="Start paint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_settings"
+                    android:src="@drawable/ic_start_paint"
                     style="@style/MenuButtonsStyle" />
 
 
