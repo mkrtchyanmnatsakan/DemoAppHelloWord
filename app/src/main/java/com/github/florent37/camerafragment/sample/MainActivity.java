@@ -78,9 +78,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //////////////////////////////////////////////
 
-
-
-    MapView preview;
     private boolean isOpenFlesh = true;
     private SurfaceHolder surfaceHolder;
     private Bitmap alertBitmap;
@@ -108,11 +105,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     //////////////////////////////////////////////
-
-
-
-
-
 
 
     @Override
@@ -156,21 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         ImagePicker.setMinQuality(800, 600);
-        preview = (MapView) findViewById(R.id.surfaceView);
-        preview.setCameraListener(new CameraListener() {
-            @Override
-            public void onPictureTaken(byte[] picture) {
-                super.onPictureTaken(picture);
-
-                // Create a bitmap
-                Bitmap result = BitmapFactory.decodeByteArray(picture, 0, picture.length);
-                Log.e("BBBBB", "VVV" + result);
-                onPic(result);
-
-            }
-        });
-
-//        photoFab = (FloatingActionButton) findViewById(R.id.photo_fab);
+        //        photoFab = (FloatingActionButton) findViewById(R.id.photo_fab);
 //        photoFab.setOnClickListener(this);
 
         albumFab = (FloatingActionButton) findViewById(R.id.my_album_fab);
@@ -192,21 +170,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         minusFab.setOnClickListener(this);
 
 
-
         // countOfScans = db.getCountofPictures();
         menu = (FloatingActionMenu) findViewById(R.id.menu);
         menu.setOnClickListener(this);
         //  galleryFab = (FloatingActionButton) findViewById(R.id.gallery_fab);
 
 
-
-
-
-
         ////////////////////////////////////
-
-
-
 
 
     }
@@ -230,26 +200,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @OnClick(R.id.record_button)
     public void onRecordButtonClicked() {
         final CameraFragmentApi cameraFragment = getCameraFragment();
+        Log.e("clicked","true**");
         if (cameraFragment != null) {
+            Log.e("clicked","true");
             cameraFragment.takePhotoOrCaptureVideo(new CameraFragmentResultAdapter() {
-                @Override
-                public void onVideoRecorded(String filePath) {
-                    Toast.makeText(getBaseContext(), "onVideoRecorded " + filePath, Toast.LENGTH_SHORT).show();
-                }
+                                                       @Override
+                                                       public void onVideoRecorded(String filePath) {
+                                                           Toast.makeText(getBaseContext(), "onVideoRecorded " + filePath, Toast.LENGTH_SHORT).show();
+                                                       }
 
-                @Override
-                public void onPhotoTaken(byte[] bytes, String filePath) {
-                    Toast.makeText(getBaseContext(), "onPhotoTaken " + filePath, Toast.LENGTH_SHORT).show();
-                }
-            },
-            "/storage/self/primary",
-            "photo0");
+                                                       @Override
+                                                       public void onPhotoTaken(byte[] bytes, String filePath) {
+
+
+                                                           transparentEffectImg.setImageBitmap(getBitmapFromPath(filePath));;
+
+                                                           /** To DO*/
+
+
+                                                           Toast.makeText(getBaseContext(), "onPhotoTaken " + filePath, Toast.LENGTH_SHORT).show();
+                                                       }
+                                                   },
+                    "/storage/self/primary",
+                    "photo0");
         }
     }
 
     @OnClick(R.id.settings_view)
     public void onSettingsClicked() {
-        Log.e("settings_view","true++++");
+        Log.e("settings_view", "true++++");
 
         final CameraFragmentApi cameraFragment = getCameraFragment();
         if (cameraFragment != null) {
@@ -463,10 +442,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     //////////////////////////////////////
-
-
 
 
     public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
@@ -509,7 +485,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     private class SingleFlingListener implements PhotoViewAttacher.OnSingleFlingListener {
 
         @Override
@@ -524,28 +499,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return true;
         }
     }
-
-
-    public void onPic(Bitmap bitmap) {
-
-        //////////////////////
-        alertBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());// on pic
-        canvas = new Canvas(alertBitmap);
-        Paint paint = new Paint();
-        paint.setAlpha(42);
-
-        canvas.drawBitmap(alertBitmap, 0, 0, paint);
-
-
-        Bitmap b = Bitmap.createBitmap(alertBitmap);
-        Canvas c = new Canvas(b);
-        preview.draw(c);
-
-
-        ///////////////////
-
-    }
-
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -613,10 +566,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.minus_fab:
 
-                i = i-10;
+                i = i - 10;
 
-                transparentEffectImg.setAlpha((float)i/255);
-
+                transparentEffectImg.setAlpha((float) i / 255);
 
 
 //
@@ -631,10 +583,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.plus_fab:
 
-                i =i+10;
+                i = i + 10;
 
-                transparentEffectImg.setAlpha((float)i/255);
-
+                transparentEffectImg.setAlpha((float) i / 255);
 
 
 //                AlphaAnimation alphaPlus = new AlphaAnimation(0.5F, 0.01F); // change values as you want
@@ -658,7 +609,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onResume() {
-        preview.start();
         super.onResume();
 
     }
@@ -666,7 +616,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onPause() {
-        preview.stop();
+
         super.onPause();
 
     }
@@ -694,29 +644,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
-
-
-
-
-
-
-
-
-
+    Bitmap getBitmapFromPath(String path){
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+        return bitmap;
+    }
 
 
     //////////////////////////////////
-
-
-
-
-
-
-
-
-
-
 
 
 }
