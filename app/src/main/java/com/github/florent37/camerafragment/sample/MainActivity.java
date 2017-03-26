@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,10 +20,11 @@ import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.flurgle.camerakit.CameraListener;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.github.florent37.camerafragment.CameraFragment;
@@ -83,6 +83,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Bitmap alertBitmap;
     private Canvas canvas;
     ImageView transparentEffectImg;
+
+    LinearLayout flashSwitchCameraView;
+    LinearLayout startCancelLayout;
+
+    TextView startTextView;
+    TextView cancelTextView;
+
+    SeekBar opacityBar;
+
     FloatingActionButton photoFab;
     FloatingActionButton albumFab;
     FloatingActionButton cameraFab;
@@ -145,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transparentEffectImg = (ImageView) findViewById(R.id.transparet_efect_imageView);
 
 
-        dinoBMP = BitmapFactory.decodeResource(getResources(), R.drawable.dino);
+        dinoBMP = BitmapFactory.decodeResource(getResources(), R.drawable.transparent_imag);
 
         Bitmap scaledBitmap = scaleDown(dinoBMP, 1100, true);
 
@@ -185,20 +194,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         replayBy5Fab = (FloatingActionButton) findViewById(R.id.replay_by_5_fab);
         replayBy5Fab.setOnClickListener(this);
 
-        plusFab = (FloatingActionButton) findViewById(R.id.plus_fab);
-        plusFab.setOnClickListener(this);
+//        plusFab = (FloatingActionButton) findViewById(R.id.plus_fab);
+//        plusFab.setOnClickListener(this);
 
-        minusFab = (FloatingActionButton) findViewById(R.id.minus_fab);
-        minusFab.setOnClickListener(this);
+//        minusFab = (FloatingActionButton) findViewById(R.id.minus_fab);
+//        minusFab.setOnClickListener(this);
 
 
         // countOfScans = db.getCountofPictures();
         menu = (FloatingActionMenu) findViewById(R.id.menu);
         menu.setOnClickListener(this);
 
-        startPaintFab = (FloatingActionButton) findViewById(R.id.start_paint_fab);
-        startPaintFab.setOnClickListener(this);
+//        startPaintFab = (FloatingActionButton) findViewById(R.id.start_paint_fab);
+//        startPaintFab.setOnClickListener(this);
         //  galleryFab = (FloatingActionButton) findViewById(R.id.gallery_fab);
+
+        flashSwitchCameraView = (LinearLayout) findViewById(R.id.flash_switch_camera_view);
+        startCancelLayout = (LinearLayout) findViewById(R.id.start_cancel_layout);
+
+        startTextView = (TextView) findViewById(R.id.start_textView);
+        startTextView.setOnClickListener(this);
+
+        cancelTextView = (TextView) findViewById(R.id.cancel_textView);
+        cancelTextView.setOnClickListener(this);
+
+
+
+        opacityBar = (SeekBar) findViewById(R.id.opacity);
+
+        opacityBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                transparentEffectImg.setAlpha((float)progress/255);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
 
         ////////////////////////////////////
@@ -219,6 +258,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @OnClick(R.id.front_back_camera_switcher)
     public void onSwitchCameraClicked() {
+
+        flashSwitchCameraView.setVisibility(View.VISIBLE);
         final CameraFragmentApi cameraFragment = getCameraFragment();
         if (cameraFragment != null) {
             cameraFragment.switchCameraTypeFrontBack();
@@ -227,7 +268,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @OnClick(R.id.record_button)
     public void onRecordButtonClicked() {
+
+        startCancelLayout.setVisibility(View.VISIBLE);
+        flashSwitchCameraView.setVisibility(View.GONE);
         final CameraFragmentApi cameraFragment = getCameraFragment();
+        recordButton.setVisibility(View.GONE);
         Log.e("clicked","true**");
         if (cameraFragment != null) {
             Log.e("clicked","true");
@@ -240,8 +285,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                        @Override
                                                        public void onPhotoTaken(byte[] bytes, String filePath) {
 
+                                                           transparentEffectImg.setVisibility(View.VISIBLE);
+                                                           opacityBar.setVisibility(View.VISIBLE);
+                                                           recordButton.setVisibility(View.GONE);
+                                                           flashSwitchCameraView.setVisibility(View.VISIBLE);
 
 
+                                                                        transparentEffectImg.setAlpha(0.5f);
 
                                                         //   transparentEffectImg.setImageBitmap(getBitmapFromPath(filePath));
                                                                         transparentEffectImg.setImageBitmap(scaleDown(getBitmapFromPath(filePath),800,true));
@@ -572,17 +622,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (v.getId()) {
 
+            case R.id.cancel_textView:
+                Log.e("cancel","cancel true +++");
+                recordButton.setVisibility(View.VISIBLE);
+                flashSwitchCameraView.setVisibility(View.VISIBLE);
+                startCancelLayout.setVisibility(View.GONE);
+                transparentEffectImg.setVisibility(View.GONE);
+                opacityBar.setVisibility(View.GONE);
 
-            case R.id.start_paint_fab:
+
+                break;
+
+            case R.id.start_textView:
+
+                Log.e("start","start true +++");
                 menu.close(true);
                 recordButton.setVisibility(View.GONE);
+                flashSwitchCameraView.setVisibility(View.GONE);
+                startCancelLayout.setVisibility(View.GONE);
+
                 break;
+
+
+//            case R.id.start_paint_fab:
+//                menu.close(true);
+//                recordButton.setVisibility(View.GONE);
+//                flashSwitchCameraView.setVisibility(View.GONE);
+//                break;
 
             case R.id.camera_fab:
                 menu.close(true);
-                flashSwitchView.displayFlashOn();
                 recordButton.setVisibility(View.VISIBLE);
-                cameraSwitchView.setVisibility(View.VISIBLE);
+                flashSwitchCameraView.setVisibility(View.VISIBLE);
+                transparentEffectImg.setVisibility(View.GONE);
+                opacityBar.setVisibility(View.GONE);
 
 
                 break;
@@ -592,46 +665,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.rotation_by_5_fab:
-                mAttacher.setRotationBy(-5);
+                mAttacher.setRotationBy(-1);
                 break;
 
             case R.id.replay_by_5_fab:
-                mAttacher.setRotationBy(5);
+                mAttacher.setRotationBy(1);
                 break;
             case R.id.my_album_fab:
                 ImagePicker.pickImage(this, "Select your image:");
                 break;
 
-            case R.id.minus_fab:
-
-                i = i - 10;
-
-                transparentEffectImg.setAlpha((float) i / 255);
-
-
+//            case R.id.minus_fab:
 //
-//                AlphaAnimation alpha = new AlphaAnimation(-0.5F, -0.01F); // change values as you want
-//                alpha.setDuration(0); // Make animation instant
-//                alpha.setFillAfter(true); // Tell it to persist after the animation ends
-//// And then on your imageview
-//                transparentEffectImg.startAnimation(alpha);
+//                i = i - 10;
 //
-//                mAttacher = new PhotoViewAttacher(transparentEffectImg);
-                break;
-
-            case R.id.plus_fab:
-
-                i = i + 10;
-
-                transparentEffectImg.setAlpha((float) i / 255);
-
-
-//                AlphaAnimation alphaPlus = new AlphaAnimation(0.5F, 0.01F); // change values as you want
-//                alphaPlus.setDuration(0); // Make animation instant
-//                alphaPlus.setFillAfter(true); // Tell it to persist after the animation ends
-//// And then on your imageview
-//                transparentEffectImg.startAnimation(alphaPlus);
-                break;
+//                transparentEffectImg.setAlpha((float) i / 255);
+//
+//
+////
+////                AlphaAnimation alpha = new AlphaAnimation(-0.5F, -0.01F); // change values as you want
+////                alpha.setDuration(0); // Make animation instant
+////                alpha.setFillAfter(true); // Tell it to persist after the animation ends
+////// And then on your imageview
+////                transparentEffectImg.startAnimation(alpha);
+////
+////                mAttacher = new PhotoViewAttacher(transparentEffectImg);
+//                break;
+//
+//            case R.id.plus_fab:
+//
+//                i = i + 10;
+//
+//                transparentEffectImg.setAlpha((float) i / 255);
+//
+//
+////                AlphaAnimation alphaPlus = new AlphaAnimation(0.5F, 0.01F); // change values as you want
+////                alphaPlus.setDuration(0); // Make animation instant
+////                alphaPlus.setFillAfter(true); // Tell it to persist after the animation ends
+////// And then on your imageview
+////                transparentEffectImg.startAnimation(alphaPlus);
+//                break;
 
 
         }
@@ -665,6 +738,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("onActvityReasa", "true +++");
         Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);// Galery
         if (bitmap != null) {
+
+            startCancelLayout.setVisibility(View.VISIBLE);
+
+            transparentEffectImg.setVisibility(View.VISIBLE);
+            opacityBar.setVisibility(View.VISIBLE);
+            transparentEffectImg.setAlpha(0.5f);
             transparentEffectImg.setImageBitmap(bitmap);
             Log.e("bitmap", bitmap.getGenerationId() + "+++");
             Log.e("bitmap", "notNull+++");

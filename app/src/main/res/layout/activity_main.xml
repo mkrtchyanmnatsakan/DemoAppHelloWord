@@ -35,11 +35,11 @@
 
 
         <ImageView
-
+            android:visibility="gone"
             android:scaleType="centerCrop"
             android:id="@+id/transparet_efect_imageView"
             android:layout_width="wrap_content"
-            android:alpha="0.5"
+            android:alpha="0"
             android:layout_height="wrap_content"
             android:src="@drawable/naruto"/>
 
@@ -52,6 +52,57 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
+
+
+
+
+            <SeekBar
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:id="@+id/opacity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="255"
+                android:progress="255" />
+
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/start_cancel_layout"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+
+                <TextView
+                    android:id="@+id/start_textView"
+                    android:padding="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:text="   Start   "
+                    android:textSize="22sp"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/cancel_textView"
+                    android:padding="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:text="   Cancel   "
+                    android:textSize="22sp"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+
+
 
 
 
@@ -99,24 +150,7 @@
 
 
 
-            <com.github.florent37.camerafragment.widgets.FlashSwitchView
-                android:layout_marginTop="10dp"
-                android:id="@+id/flash_switch_view"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
 
-
-                />
-
-            <com.github.florent37.camerafragment.widgets.CameraSwitchView
-                android:layout_marginTop="10dp"
-                android:id="@+id/front_back_camera_switcher"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp" />
 
 
 
@@ -146,32 +180,79 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginStart="24dp" />
 
+
+            <LinearLayout
+                android:id="@+id/flash_switch_camera_view"
+                android:visibility="gone"
+                android:layout_marginStart="10dp"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp">
+
+
+                <com.github.florent37.camerafragment.widgets.CameraSwitchView
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/front_back_camera_switcher"
+                    android:layout_width="40dp"
+
+                    android:layout_height="40dp"
+                     />
+
+
+
+                <com.github.florent37.camerafragment.widgets.FlashSwitchView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/flash_switch_view"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+
+
+
+                    />
+
+
+
+
+
+            </LinearLayout>
+
             <com.github.florent37.camerafragment.widgets.RecordButton
                 android:id="@+id/record_button"
                 android:visibility="gone"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="10dp"
                 android:layout_centerInParent="true"
-                android:layout_width="80dp"
-                android:layout_height="80dp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
 
             <com.github.clans.fab.FloatingActionMenu
                 android:id="@+id/menu"
-                android:layout_width="145dp"
+
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="10dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="10dp"
+
+                fab:menu_icon="@drawable/ic_close_copy_art"
                 fab:menu_labels_style="@style/MenuLabelsStyle"
                 fab:menu_labels_showAnimation="@anim/jump_from_down"
                 fab:menu_labels_hideAnimation="@anim/jump_to_down"
                 fab:menu_animationDelayPerItem="0"
-                fab:menu_shadowColor="#444"
-                fab:menu_colorNormal="@color/colorPrimary"
-                fab:menu_colorPressed="#444"
-                fab:menu_colorRipple="@color/colorPrimary">
+                fab:menu_shadowColor="#00000000"
+                fab:menu_colorNormal="#00000000"
+                fab:menu_colorPressed="#00000000"
+                fab:menu_colorRipple="#00000000">
+
 
 
 
@@ -179,47 +260,50 @@
                 <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/camera_fab"
                     android:visibility="visible"
-                    fab:fab_label="Camera"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_camera"
+                    android:src="@drawable/ic_camera_copy_art"
                     style="@style/MenuButtonsStyle" />
+
+
+                <!--<com.github.clans.fab.FloatingActionButton-->
+                    <!--android:id="@+id/my_art_fab"-->
+                    <!--android:visibility="visible"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/ic_my_art_copy_art"-->
+                    <!--style="@style/MenuButtonsStyle" />-->
 
                 <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/my_album_fab"
                     android:visibility="visible"
-                    fab:fab_label="Albums"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_album"
+                    android:src="@drawable/ic_my_album_copy_art"
                     style="@style/MenuButtonsStyle" />
 
-                <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/plus_fab"
-                    android:visibility="visible"
-                    fab:fab_label="Alpha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_plus"
-                    style="@style/MenuButtonsStyle" />
-
-                <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/minus_fab"
-                    android:visibility="visible"
-                    fab:fab_label="Alpha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_minus"
-                    style="@style/MenuButtonsStyle" />
+                <!--<com.github.clans.fab.FloatingActionButton-->
+                    <!--android:id="@+id/my_video_fab"-->
+                    <!--android:visibility="visible"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/ic_my_video_copy_art"-->
+                    <!--style="@style/MenuButtonsStyle" />-->
 
 
+                <!--<com.github.clans.fab.FloatingActionButton-->
+                    <!--android:id="@+id/my_settings_fab"-->
+                    <!--android:visibility="visible"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/ic_settings_copy_art"-->
+                    <!--style="@style/MenuButtonsStyle" />-->
 
                 <com.github.clans.fab.FloatingActionButton
 
                     android:id="@+id/rotation_by_5_fab"
                     android:layout_width="wrap_content"
                     android:visibility="visible"
-                    fab:fab_label="Right 1"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_rotate_right"
                     style="@style/MenuButtonsStyle" />
@@ -228,7 +312,6 @@
                     android:id="@+id/replay_by_5_fab"
                     android:layout_width="wrap_content"
                     android:visibility="visible"
-                    fab:fab_label="Left 1"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_rotate_left"
                     style="@style/MenuButtonsStyle" />
@@ -238,20 +321,12 @@
                 <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/rotation_fab"
                     android:visibility="visible"
-                    fab:fab_label="Automatic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_auto_rotate"
                     style="@style/MenuButtonsStyle" />
 
-                <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/start_paint_fab"
-                    android:visibility="visible"
-                    fab:fab_label="Start paint"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_start_paint"
-                    style="@style/MenuButtonsStyle" />
+
 
 
 
