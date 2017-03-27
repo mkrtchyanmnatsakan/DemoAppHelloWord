@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         dinoBMP = BitmapFactory.decodeResource(getResources(), R.drawable.dino);
 
-        Bitmap scaledBitmap = scaleDown(dinoBMP, 1100, true);
+        Bitmap scaledBitmap = scaleDown(dinoBMP, 800, true);
 
 
 //        narutoBMP.setWidth(200);
@@ -239,6 +239,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                                        @Override
                                                        public void onPhotoTaken(byte[] bytes, String filePath) {
+
+                                                           Log.e("Photo",filePath+ "+++++");
 
 
 
@@ -592,11 +594,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.rotation_by_5_fab:
-                mAttacher.setRotationBy(-5);
+                mAttacher.setRotationBy(-1);
                 break;
 
             case R.id.replay_by_5_fab:
-                mAttacher.setRotationBy(5);
+                mAttacher.setRotationBy(1);
                 break;
             case R.id.my_album_fab:
                 ImagePicker.pickImage(this, "Select your image:");
