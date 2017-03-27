@@ -67,7 +67,7 @@
 
 
             <LinearLayout
-                android:visibility="gone"
+                android:visibility="visible"
                 android:id="@+id/start_cancel_layout"
                 android:layout_centerInParent="true"
                 android:orientation="vertical"
@@ -75,28 +75,87 @@
                 android:layout_height="wrap_content">
 
 
+                <RelativeLayout
+                    android:layout_width="65dp"
+                    android:layout_height="25dp">
 
-                <TextView
-                    android:id="@+id/start_textView"
-                    android:padding="5dp"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:text="   Start   "
-                    android:textSize="22sp"
-                    android:layout_centerInParent="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    <View
+                        android:id="@+id/topView"
+                        android:background="@color/colorAccent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp">
 
-                <TextView
-                    android:id="@+id/cancel_textView"
-                    android:padding="5dp"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:text="   Cancel   "
-                    android:textSize="22sp"
-                    android:layout_centerInParent="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+
+                    </View>
+
+                    <View
+                        android:id="@+id/liftView"
+                        android:background="@color/colorAccent"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent">
+
+                    </View>
+
+                    <View
+                        android:layout_alignParentLeft="true"
+                        android:background="@color/colorAccent"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"/>
+
+
+
+                    <TextView
+
+                        android:id="@+id/start_textView"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="   Start   "
+                        android:textSize="15sp"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/colorAccent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp">
+
+
+
+                    </View>
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop=""
+                    android:layout_width="65dp"
+                    android:layout_height="25dp">
+
+
+
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="   Cancel   "
+                        android:textSize="15sp"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+
+                </RelativeLayout>
+
+
+
+
+
+
 
 
             </LinearLayout>
@@ -229,8 +288,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="10dp"
                 android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_width="80dp"
+                android:layout_height="80dp"/>
 
 
             <com.github.clans.fab.FloatingActionMenu
