@@ -67,7 +67,7 @@
 
 
             <LinearLayout
-                android:visibility="visible"
+                android:visibility="gone"
                 android:id="@+id/start_cancel_layout"
                 android:layout_centerInParent="true"
                 android:orientation="vertical"
@@ -76,40 +76,42 @@
 
 
                 <RelativeLayout
-                    android:layout_width="65dp"
+                    android:id="@+id/start_relativeLayout"
+                    android:layout_width="75dp"
                     android:layout_height="25dp">
 
                     <View
-                        android:id="@+id/topView"
-                        android:background="@color/colorAccent"
+
+                        android:background="@color/colorUnderlayn"
                         android:layout_width="wrap_content"
-                        android:layout_height="1dp">
+                        android:layout_height="1.5dp">
 
 
                     </View>
 
                     <View
-                        android:id="@+id/liftView"
-                        android:background="@color/colorAccent"
+
+                        android:background="@color/colorUnderlayn"
                         android:layout_alignParentRight="true"
-                        android:layout_width="1dp"
+                        android:layout_width="1.5dp"
                         android:layout_height="match_parent">
 
                     </View>
 
                     <View
                         android:layout_alignParentLeft="true"
-                        android:background="@color/colorAccent"
-                        android:layout_width="1dp"
+                        android:background="@color/colorUnderlayn"
+                        android:layout_width="1.5dp"
                         android:layout_height="match_parent"/>
 
 
 
                     <TextView
-
+                        android:textColor="@color/colorUnderlayn"
                         android:id="@+id/start_textView"
                         android:layout_gravity="center"
                         android:gravity="center"
+                        android:textStyle="bold"
                         android:text="   Start   "
                         android:textSize="15sp"
                         android:layout_centerInParent="true"
@@ -118,9 +120,9 @@
 
                     <View
                         android:layout_alignParentBottom="true"
-                        android:background="@color/colorAccent"
+                        android:background="@color/colorUnderlayn"
                         android:layout_width="wrap_content"
-                        android:layout_height="1dp">
+                        android:layout_height="1.5dp">
 
 
 
@@ -131,16 +133,56 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_marginTop=""
-                    android:layout_width="65dp"
+                    android:id="@+id/cancel_relativeLayout"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="75dp"
                     android:layout_height="25dp">
+
+
+                    <View
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/colorUnderlayn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1.5dp">
+
+
+
+                    </View>
+
+
+                    <View
+
+                        android:background="@color/colorUnderlayn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1.5dp">
+
+
+                    </View>
+
+                    <View
+
+                        android:background="@color/colorUnderlayn"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="1.5dp"
+                        android:layout_height="match_parent">
+
+                    </View>
+
+                    <View
+                        android:layout_alignParentLeft="true"
+                        android:background="@color/colorUnderlayn"
+                        android:layout_width="1.5dp"
+                        android:layout_height="match_parent"/>
 
 
 
 
                     <TextView
+                        android:textColor="@color/colorUnderlayn"
+                        android:id="@+id/cancel_textView"
                         android:layout_gravity="center"
                         android:gravity="center"
+                        android:textStyle="bold"
                         android:text="   Cancel   "
                         android:textSize="15sp"
                         android:layout_centerInParent="true"

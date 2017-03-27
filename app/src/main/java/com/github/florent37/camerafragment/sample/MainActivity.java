@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -89,6 +90,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     TextView startTextView;
     TextView cancelTextView;
+
+    RelativeLayout startRelativeLayout;
+    RelativeLayout cancelRelativeLayout;
 
     SeekBar opacityBar;
 
@@ -212,11 +216,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         flashSwitchCameraView = (LinearLayout) findViewById(R.id.flash_switch_camera_view);
         startCancelLayout = (LinearLayout) findViewById(R.id.start_cancel_layout);
 
-        startTextView = (TextView) findViewById(R.id.start_textView);
-        startTextView.setOnClickListener(this);
+//        startTextView = (TextView) findViewById(R.id.start_textView);
+//        startTextView.setOnClickListener(this);
 
-        cancelTextView = (TextView) findViewById(R.id.cancel_textView);
-        cancelTextView.setOnClickListener(this);
+            startRelativeLayout = (RelativeLayout) findViewById(R.id.start_relativeLayout);
+        startRelativeLayout.setOnClickListener(this);
+
+//        cancelTextView = (TextView) findViewById(R.id.cancel_textView);
+//        cancelTextView.setOnClickListener(this);
+
+        cancelRelativeLayout = (RelativeLayout) findViewById(R.id.cancel_relativeLayout);
+        cancelRelativeLayout.setOnClickListener(this);
 
 
 
@@ -622,7 +632,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (v.getId()) {
 
-            case R.id.cancel_textView:
+            case R.id.cancel_relativeLayout:
                 Log.e("cancel","cancel true +++");
                 recordButton.setVisibility(View.VISIBLE);
                 flashSwitchCameraView.setVisibility(View.VISIBLE);
@@ -633,7 +643,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
-            case R.id.start_textView:
+            case R.id.start_relativeLayout:
 
                 Log.e("start","start true +++");
                 menu.close(true);
