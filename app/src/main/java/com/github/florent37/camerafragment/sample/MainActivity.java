@@ -98,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     FloatingActionButton photoFab;
     FloatingActionButton albumFab;
+    FloatingActionButton myAlbumArtFab;
+
     FloatingActionButton cameraFab;
     FloatingActionButton automaticRotationFab;
     FloatingActionButton startPaintFab;
@@ -183,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         ImagePicker.setMinQuality(800, 600);
-                photoFab = (FloatingActionButton) findViewById(R.id.camera_fab);
+        photoFab = (FloatingActionButton) findViewById(R.id.camera_fab);
         photoFab.setOnClickListener(this);
 
         albumFab = (FloatingActionButton) findViewById(R.id.my_album_fab);
@@ -197,6 +199,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         replayBy5Fab = (FloatingActionButton) findViewById(R.id.replay_by_5_fab);
         replayBy5Fab.setOnClickListener(this);
+
+        myAlbumArtFab = (FloatingActionButton) findViewById(R.id.my_album_art_fab);
+        myAlbumArtFab.setOnClickListener(this);
 
 //        plusFab = (FloatingActionButton) findViewById(R.id.plus_fab);
 //        plusFab.setOnClickListener(this);
@@ -219,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        startTextView = (TextView) findViewById(R.id.start_textView);
 //        startTextView.setOnClickListener(this);
 
-            startRelativeLayout = (RelativeLayout) findViewById(R.id.start_relativeLayout);
+        startRelativeLayout = (RelativeLayout) findViewById(R.id.start_relativeLayout);
         startRelativeLayout.setOnClickListener(this);
 
 //        cancelTextView = (TextView) findViewById(R.id.cancel_textView);
@@ -229,13 +234,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cancelRelativeLayout.setOnClickListener(this);
 
 
-
         opacityBar = (SeekBar) findViewById(R.id.opacity);
 
         opacityBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                transparentEffectImg.setAlpha((float)progress/255);
+                transparentEffectImg.setAlpha((float) progress / 255);
             }
 
             @Override
@@ -252,8 +256,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ////////////////////////////////////
 
-       // flashSwitchView.displayFlashOff();
-
+        // flashSwitchView.displayFlashOff();
 
 
     }
@@ -283,9 +286,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         flashSwitchCameraView.setVisibility(View.GONE);
         final CameraFragmentApi cameraFragment = getCameraFragment();
         recordButton.setVisibility(View.GONE);
-        Log.e("clicked","true**");
+        Log.e("clicked", "true**");
         if (cameraFragment != null) {
-            Log.e("clicked","true");
+            Log.e("clicked", "true");
             cameraFragment.takePhotoOrCaptureVideo(new CameraFragmentResultAdapter() {
                                                        @Override
                                                        public void onVideoRecorded(String filePath) {
@@ -301,10 +304,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                            flashSwitchCameraView.setVisibility(View.VISIBLE);
 
 
-                                                                        transparentEffectImg.setAlpha(0.5f);
+                                                           transparentEffectImg.setAlpha(0.5f);
 
-                                                        //   transparentEffectImg.setImageBitmap(getBitmapFromPath(filePath));
-                                                                        transparentEffectImg.setImageBitmap(scaleDown(getBitmapFromPath(filePath),800,true));
+                                                           //   transparentEffectImg.setImageBitmap(getBitmapFromPath(filePath));
+                                                           transparentEffectImg.setImageBitmap(scaleDown(getBitmapFromPath(filePath), 800, true));
                                                            /** To DO*/
 
 
@@ -361,6 +364,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults.length != 0) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
             addCamera();
         }
     }
@@ -370,6 +383,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addCameraButton.setVisibility(View.GONE);
         cameraLayout.setVisibility(View.VISIBLE);
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         final CameraFragment cameraFragment = CameraFragment.newInstance(new Configuration.Builder()
                 .setCamera(Configuration.CAMERA_FACE_REAR).build());
         getSupportFragmentManager().beginTransaction()
@@ -639,6 +662,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startCancelLayout.setVisibility(View.GONE);
                 transparentEffectImg.setVisibility(View.GONE);
                 opacityBar.setVisibility(View.GONE);
+
+
+                break;
+
+            case R.id.my_album_art_fab:
+                startActivity(new Intent(MainActivity.this, MyAlbumActivity.class));
+                overridePendingTransition(R.anim.enter, R.anim.exit);
 
 
                 break;
