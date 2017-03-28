@@ -400,32 +400,32 @@
                     <!--android:src="@drawable/ic_settings_copy_art"-->
                     <!--style="@style/MenuButtonsStyle" />-->
 
-                <com.github.clans.fab.FloatingActionButton
+                <!--<com.github.clans.fab.FloatingActionButton-->
 
-                    android:id="@+id/rotation_by_5_fab"
-                    android:layout_width="wrap_content"
-                    android:visibility="visible"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_rotate_right"
-                    style="@style/MenuButtonsStyle" />
+                    <!--android:id="@+id/rotation_by_5_fab"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:visibility="visible"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/ic_rotate_right"-->
+                    <!--style="@style/MenuButtonsStyle" />-->
 
-                <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/replay_by_5_fab"
-                    android:layout_width="wrap_content"
-                    android:visibility="visible"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_rotate_left"
-                    style="@style/MenuButtonsStyle" />
+                <!--<com.github.clans.fab.FloatingActionButton-->
+                    <!--android:id="@+id/replay_by_5_fab"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:visibility="visible"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/ic_rotate_left"-->
+                    <!--style="@style/MenuButtonsStyle" />-->
 
 
 
-                <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/rotation_fab"
-                    android:visibility="visible"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_auto_rotate"
-                    style="@style/MenuButtonsStyle" />
+                <!--<com.github.clans.fab.FloatingActionButton-->
+                    <!--android:id="@+id/rotation_fab"-->
+                    <!--android:visibility="visible"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/ic_auto_rotate"-->
+                    <!--style="@style/MenuButtonsStyle" />-->
 
 
 
