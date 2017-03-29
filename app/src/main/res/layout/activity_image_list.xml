@@ -1,9 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorUnderlayn"
     tools:context="com.github.florent37.camerafragment.sample.ImageListActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp">
+
+        <ImageView
+            android:id="@+id/beck_imageView"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_beck_copy_art"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="@color/colorAccent"
+            android:text="Select Photos"
+            android:textSize="24sp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="75dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/card_recycler_view"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>

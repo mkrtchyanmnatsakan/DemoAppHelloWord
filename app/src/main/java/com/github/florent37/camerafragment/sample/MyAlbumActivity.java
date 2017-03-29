@@ -1,5 +1,6 @@
 package com.github.florent37.camerafragment.sample;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,18 @@ ImageView beckImageView;
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode==10){
+            setResult(10);
+            onBackPressed();
+        }
+    }
+
+    @Override
     public void onClick(View view) {
 
         switch (view.getId()){
@@ -36,22 +49,27 @@ ImageView beckImageView;
 
             case R.id.cartoon_relativeLayout:
                 Toast.makeText(this, "Go to cartoon album", Toast.LENGTH_SHORT).show();
+                startActivityForResult(new Intent(MyAlbumActivity.this,ImageListActivity.class).putExtra("type","cartoon"),2);
                 break;
 
             case R.id.portrait_relativeLayout:
                 Toast.makeText(this, "Go to portrait album", Toast.LENGTH_SHORT).show();
+                startActivityForResult(new Intent(MyAlbumActivity.this,ImageListActivity.class).putExtra("type","portrait"),2);
                 break;
 
             case R.id.architecture_relativeLayout:
                 Toast.makeText(this, "Go to architecture album", Toast.LENGTH_SHORT).show();
+                startActivityForResult(new Intent(MyAlbumActivity.this,ImageListActivity.class).putExtra("type","architecture"),2);
                 break;
 
             case R.id.animals_relativeLayout:
                 Toast.makeText(this, "Go to animals album", Toast.LENGTH_SHORT).show();
+                startActivityForResult(new Intent(MyAlbumActivity.this,ImageListActivity.class).putExtra("type","animals"),2);
                 break;
-
             case R.id.tree_D_relativeLayout:
                 Toast.makeText(this, "Go to 3D album", Toast.LENGTH_SHORT).show();
+                startActivityForResult(new Intent(MyAlbumActivity.this,ImageListActivity.class).putExtra("type","3d"),2);
+
                 break;
         }
 

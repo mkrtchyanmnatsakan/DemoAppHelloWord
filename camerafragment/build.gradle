@@ -7,10 +7,10 @@ android {
     defaultConfig {
         minSdkVersion project.minSdk
         targetSdkVersion project.sdk
-
         versionCode 1
         versionName "1.0"
     }
+    buildToolsVersion '25.0.0'
 }
 
 dependencies {

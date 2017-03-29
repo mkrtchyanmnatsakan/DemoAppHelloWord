@@ -5,4 +5,5 @@ package com.github.florent37.camerafragment.sample;
  */
 
 public interface ConstantValues {
+    String CURRANT_PATH = "CURRANT_PATH";
 }

@@ -45,6 +45,8 @@ import com.github.florent37.camerafragment.widgets.RecordButton;
 import com.mvc.imagepicker.ImagePicker;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -447,18 +449,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.e("onActvityReasa", "true +++");
-        Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);// Galery
-        if (bitmap != null) {
+        Log.e("resultCode", resultCode + "+++");
 
-            startCancelLayout.setVisibility(View.VISIBLE);
-            transparentEffectImg.setVisibility(View.VISIBLE);
-            opacityBar.setVisibility(View.VISIBLE);
-            transparentEffectImg.setAlpha(0.5f);
-            transparentEffectImg.setImageBitmap(bitmap);
-            Log.e("bitmap", bitmap.getGenerationId() + "+++");
-            Log.e("bitmap", "notNull+++");
+        switch (resultCode){
+            case -1:
 
+                Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);// Galery
+                if (bitmap != null) {
+
+                    startCancelLayout.setVisibility(View.VISIBLE);
+                    transparentEffectImg.setVisibility(View.VISIBLE);
+                    opacityBar.setVisibility(View.VISIBLE);
+                    transparentEffectImg.setAlpha(0.5f);
+                    transparentEffectImg.setImageBitmap(bitmap);
+                    Log.e("bitmap", bitmap.getGenerationId() + "+++");
+                    Log.e("bitmap", "notNull+++");
+
+
+
+                }
+
+                break;
+
+            case 10:
+
+                InputStream is = null;
+                try {
+                    is = getAssets().open(SharedPreferenceHelper.getSharedPreferenceString(this,ConstantValues.CURRANT_PATH,""));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                opacityBar.setVisibility(View.VISIBLE);
+               transparentEffectImg.setVisibility(View.VISIBLE);
+                transparentEffectImg.setImageBitmap(BitmapFactory.decodeStream(is));
+                transparentEffectImg.setAlpha(0.5f);
+
+                break;
         }
+
+
     }
 
     @Override
@@ -539,7 +568,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.my_album_art_fab:
-                startActivity(new Intent(MainActivity.this, MyAlbumActivity.class));
+                startActivityForResult(new Intent(MainActivity.this, MyAlbumActivity.class),1);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
 
