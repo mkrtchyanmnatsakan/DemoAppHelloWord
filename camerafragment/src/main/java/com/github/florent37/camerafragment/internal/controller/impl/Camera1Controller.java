@@ -2,6 +2,7 @@ package com.github.florent37.camerafragment.internal.controller.impl;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -82,7 +83,8 @@ public class Camera1Controller implements CameraController<Integer>,
 
     @Override
     public void takePhoto(CameraFragmentResultListener callback, @Nullable String direcoryPath, @Nullable String fileName) {
-        outputFile = CameraHelper.getOutputMediaFile(context, Configuration.MEDIA_ACTION_PHOTO, direcoryPath, fileName);
+       // outputFile = CameraHelper.getOutputMediaFile(context, Configuration.MEDIA_ACTION_PHOTO, direcoryPath, fileName);
+        outputFile = new File(Environment.getExternalStorageDirectory(),"CopyArt");
         cameraManager.takePhoto(outputFile, this, callback);
     }
 
