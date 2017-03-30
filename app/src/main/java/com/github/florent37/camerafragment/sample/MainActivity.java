@@ -456,7 +456,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);// Galery
                 if (bitmap != null) {
-
+                    menu.close(true);
                     startCancelLayout.setVisibility(View.VISIBLE);
                     transparentEffectImg.setVisibility(View.VISIBLE);
                     opacityBar.setVisibility(View.VISIBLE);
@@ -479,6 +479,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                menu.close(true);
+                startCancelLayout.setVisibility(View.VISIBLE);
                 opacityBar.setVisibility(View.VISIBLE);
                transparentEffectImg.setVisibility(View.VISIBLE);
                 transparentEffectImg.setImageBitmap(BitmapFactory.decodeStream(is));
@@ -531,6 +533,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     matrix.set(savedMatrix);
                     matrix.postTranslate(event.getX() - start.x, event.getY()
                             - start.y);
+
                 } else if (mode == ZOOM && event.getPointerCount() == 2) {
                     float newDist = spacing(event);
                     matrix.set(savedMatrix);
@@ -568,13 +571,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.my_album_art_fab:
-                startActivityForResult(new Intent(MainActivity.this, MyAlbumActivity.class),1);
-                overridePendingTransition(R.anim.enter, R.anim.exit);
+                ImagePicker.pickImage(this, "Select your image:");
                 break;
 
             case R.id.start_relativeLayout:
                 Log.e("start","start true +++");
                 menu.close(true);
+//                transparentEffectImg.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 recordButton.setVisibility(View.GONE);
                 flashSwitchCameraView.setVisibility(View.GONE);
                 startCancelLayout.setVisibility(View.GONE);
@@ -589,7 +592,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.my_album_fab:
-                ImagePicker.pickImage(this, "Select your image:");
+                startActivityForResult(new Intent(MainActivity.this, MyAlbumActivity.class),1);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
 
         }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,21 +13,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 /**
  * Created by m-dev on 3/29/17.
  */
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>  {
+public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
-    private String  [] android;
+    private String[] android;
     private Activity context;
     private String mtype;
 
-    public DataAdapter(Activity context,String [] android,String type) {
+    public DataAdapter(Activity context, String[] android, String type) {
         this.mtype = type;
         this.android = android;
         this.context = context;
@@ -41,17 +47,10 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>  {
 
     @Override
     public void onBindViewHolder(DataAdapter.ViewHolder viewHolder, final int i) {
-
-
-       ;
-        InputStream is = null;
-        try {
-            is = context.getAssets().open(mtype+android[i]);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Bitmap bitmap = BitmapFactory.decodeStream(is);
-        viewHolder.img_android.setImageBitmap(bitmap);
+        Picasso.with(context)
+                .load("file:///android_asset/" + mtype + android[i])
+                .resize(150,150)
+                .into(viewHolder.img_android);
 
         viewHolder.img_android.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,18 +64,17 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>  {
 
             }
         });
-        // viewHolder.img_android.setImageResource(android[i]);
-
-    }
+      }
 
     @Override
     public int getItemCount() {
         return android.length;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView img_android;
+
         public ViewHolder(View view) {
             super(view);
 

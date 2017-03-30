@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#90CAF9</color>
+    <color name="colorAccent">#00c1e1</color>
     <color name="colorUnderlayn">#FFFFFF</color>
     <color name="colorBackground">#eeeeee</color>
     <color name="colorUnderlaynMyAlbom">#e0e0e0</color>

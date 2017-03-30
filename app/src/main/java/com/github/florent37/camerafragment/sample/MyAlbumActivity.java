@@ -50,25 +50,30 @@ ImageView beckImageView;
             case R.id.cartoon_relativeLayout:
                 Toast.makeText(this, "Go to cartoon album", Toast.LENGTH_SHORT).show();
                 startActivityForResult(new Intent(MyAlbumActivity.this,ImageListActivity.class).putExtra("type","cartoon"),2);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
 
             case R.id.portrait_relativeLayout:
                 Toast.makeText(this, "Go to portrait album", Toast.LENGTH_SHORT).show();
                 startActivityForResult(new Intent(MyAlbumActivity.this,ImageListActivity.class).putExtra("type","portrait"),2);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
 
             case R.id.architecture_relativeLayout:
                 Toast.makeText(this, "Go to architecture album", Toast.LENGTH_SHORT).show();
                 startActivityForResult(new Intent(MyAlbumActivity.this,ImageListActivity.class).putExtra("type","architecture"),2);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
 
             case R.id.animals_relativeLayout:
                 Toast.makeText(this, "Go to animals album", Toast.LENGTH_SHORT).show();
                 startActivityForResult(new Intent(MyAlbumActivity.this,ImageListActivity.class).putExtra("type","animals"),2);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
             case R.id.tree_D_relativeLayout:
                 Toast.makeText(this, "Go to 3D album", Toast.LENGTH_SHORT).show();
                 startActivityForResult(new Intent(MyAlbumActivity.this,ImageListActivity.class).putExtra("type","3d"),2);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
 
                 break;
         }

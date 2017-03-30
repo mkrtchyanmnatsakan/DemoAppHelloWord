@@ -12,13 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="75dp">
 
-        <ImageView
-            android:id="@+id/beck_imageView"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/ic_beck_copy_art"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp" />
+        <RelativeLayout
+            android:id="@+id/beck_relativeLayout"
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:padding="15dp"
+                android:layout_centerInParent="true"
+                android:id="@+id/beck_imageView"
+                android:src="@drawable/ic_beck_copy_art"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                 />
+
+
+        </RelativeLayout>
+
+
 
         <TextView
             android:gravity="center"
