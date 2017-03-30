@@ -43,6 +43,7 @@ import com.github.florent37.camerafragment.widgets.FlashSwitchView;
 import com.github.florent37.camerafragment.widgets.MediaActionSwitchView;
 import com.github.florent37.camerafragment.widgets.RecordButton;
 import com.mvc.imagepicker.ImagePicker;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -132,6 +133,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Bind(R.id.menu)
     FloatingActionMenu menu;
+    private int widthDisplay;
+    private int heightDisolay;
 
 
     @Override
@@ -195,6 +198,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        widthDisplay  = getWindowManager().getDefaultDisplay().getWidth();
+        heightDisolay = getWindowManager().getDefaultDisplay().getHeight();
+
     }
 
     @OnClick(R.id.flash_switch_view)
@@ -235,20 +241,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                                        @Override
                                                        public void onPhotoTaken(byte[] bytes, String filePath) {
-
                                                            transparentEffectImg.setVisibility(View.VISIBLE);
                                                            opacityBar.setVisibility(View.VISIBLE);
                                                            recordButton.setVisibility(View.GONE);
                                                            flashSwitchCameraView.setVisibility(View.VISIBLE);
-
-
                                                            transparentEffectImg.setAlpha(0.5f);
-
                                                            //   transparentEffectImg.setImageBitmap(getBitmapFromPath(filePath));
-                                                           transparentEffectImg.setImageBitmap(scaleDown(getBitmapFromPath(filePath), 1000, true));
+                                                           Bitmap rootBitmap = scaleDown(getBitmapFromPath(filePath), 1000, true);
+                                                           Bitmap bitmap = rotateBitmap(rootBitmap,90);
+                                                           transparentEffectImg.setImageBitmap(bitmap);
                                                            /** To DO*/
-
-
                                                            Toast.makeText(getBaseContext(), "onPhotoTaken " + filePath, Toast.LENGTH_SHORT).show();
                                                        }
                                                    },
@@ -455,6 +457,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case -1:
 
                 Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);// Galery
+
+
                 if (bitmap != null) {
                     menu.close(true);
                     startCancelLayout.setVisibility(View.VISIBLE);
@@ -483,8 +487,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startCancelLayout.setVisibility(View.VISIBLE);
                 opacityBar.setVisibility(View.VISIBLE);
                transparentEffectImg.setVisibility(View.VISIBLE);
-                transparentEffectImg.setImageBitmap(BitmapFactory.decodeStream(is));
+                int width = (int) (widthDisplay * 0.2);
+                int height  = (int) (heightDisolay * 0.2);
+
+                Picasso.with(this)
+                        .load("file:///android_asset/"+SharedPreferenceHelper.getSharedPreferenceString(this,ConstantValues.CURRANT_PATH,""))
+                        .resize(widthDisplay,heightDisolay)
+                        .into(transparentEffectImg);
+
+               // Bitmap bitmapAlbum = BitmapFactory.decodeStream(is);
+
+//                transparentEffectImg.setImageBitmap(bitmapAlbum);
                 transparentEffectImg.setAlpha(0.5f);
+
 
                 break;
         }
@@ -701,6 +716,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
                 height, filter);
         return newBitmap;
+    }
+
+    public static Bitmap rotateBitmap(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
 }

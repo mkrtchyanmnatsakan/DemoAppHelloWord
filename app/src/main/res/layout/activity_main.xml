@@ -38,9 +38,9 @@
             android:visibility="gone"
             android:scaleType="centerCrop"
             android:id="@+id/transparet_efect_imageView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:alpha="0"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"/>
 
         <!--android:background="#82000000"-->
         <RelativeLayout
