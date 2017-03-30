@@ -56,8 +56,11 @@
 
 
             <SeekBar
+
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/ruler"
                 android:visibility="gone"
-                android:layout_marginTop="10dp"
                 android:id="@+id/opacity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -390,13 +393,13 @@
                     <!--style="@style/MenuButtonsStyle" />-->
 
 
-                <!--<com.github.clans.fab.FloatingActionButton-->
-                    <!--android:id="@+id/my_settings_fab"-->
-                    <!--android:visibility="visible"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@drawable/ic_settings_copy_art"-->
-                    <!--style="@style/MenuButtonsStyle" />-->
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/my_settings_fab"
+                    android:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_settings_copy_art"
+                    style="@style/MenuButtonsStyle" />
 
                 <!--<com.github.clans.fab.FloatingActionButton-->
 

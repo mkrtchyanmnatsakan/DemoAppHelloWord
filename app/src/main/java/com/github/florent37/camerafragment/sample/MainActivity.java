@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.app.ActivityCompat;
@@ -18,7 +16,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -54,7 +51,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
 
@@ -75,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Bitmap dinoBMP;
     public static final String FRAGMENT_TAG = "camera";
     private static final int REQUEST_CAMERA_PERMISSIONS = 931;
+    private boolean clickStart;
 
 
     @Bind(R.id.settings_view)
@@ -124,6 +121,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Bind(R.id.camera_fab)
     FloatingActionButton photoFab;
+
+    @Bind(R.id.my_settings_fab)
+    FloatingActionButton settingsFab;
 
     @Bind(R.id.my_album_fab)
     FloatingActionButton albumFab;
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                        @Override
                                                        public void onPhotoTaken(byte[] bytes, String filePath) {
                                                            transparentEffectImg.setVisibility(View.VISIBLE);
-                                                           opacityBar.setVisibility(View.VISIBLE);
+                                                         //  opacityBar.setVisibility(View.VISIBLE);
                                                            recordButton.setVisibility(View.GONE);
                                                            flashSwitchCameraView.setVisibility(View.VISIBLE);
                                                            transparentEffectImg.setAlpha(0.5f);
@@ -463,7 +463,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     menu.close(true);
                     startCancelLayout.setVisibility(View.VISIBLE);
                     transparentEffectImg.setVisibility(View.VISIBLE);
-                    opacityBar.setVisibility(View.VISIBLE);
+                 //   opacityBar.setVisibility(View.VISIBLE);
                     transparentEffectImg.setAlpha(0.5f);
                     transparentEffectImg.setImageBitmap(bitmap);
                     Log.e("bitmap", bitmap.getGenerationId() + "+++");
@@ -485,7 +485,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 menu.close(true);
                 startCancelLayout.setVisibility(View.VISIBLE);
-                opacityBar.setVisibility(View.VISIBLE);
+              //  opacityBar.setVisibility(View.VISIBLE);
                transparentEffectImg.setVisibility(View.VISIBLE);
                 int width = (int) (widthDisplay * 0.2);
                 int height  = (int) (heightDisolay * 0.2);
@@ -509,65 +509,103 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        ImageView view = (ImageView) v;
-        view.setScaleType(ImageView.ScaleType.MATRIX);
-        float scale;
-        dumpEvent(event);
-        switch (event.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN: //first finger down only
-                savedMatrix.set(matrix);
-                start.set(event.getX(), event.getY());
-                Log.e("mode=Drag", "mode=DRAG" );
-                mode = DRAG;
-                break;
 
-            case MotionEvent.ACTION_POINTER_DOWN:
-                oldDist = spacing(event);
-                if (oldDist > 10f) {
+        if(!clickStart){
+
+            ImageView view = (ImageView) v;
+            view.setScaleType(ImageView.ScaleType.MATRIX);
+            float scale;
+            dumpEvent(event);
+            switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_DOWN: //first finger down only
                     savedMatrix.set(matrix);
-                    midPoint(mid, event);
-                    mode = ZOOM;
-                }
-                lastEvent = new float[4];
-                lastEvent[0] = event.getX(0);
-                lastEvent[1] = event.getX(1);
-                lastEvent[2] = event.getY(0);
-                lastEvent[3] = event.getY(1);
-                d = rotation(event);
-                break;
+                    start.set(event.getX(), event.getY());
+                    Log.e("mode=Drag", "mode=DRAG" );
+                    mode = DRAG;
+                    break;
 
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_POINTER_UP:
-                mode = NONE;
-                Log.e("mode=NONE", "mode=NONE" );
-                break;
-
-
-            case MotionEvent.ACTION_MOVE:
-                if (mode == DRAG) {
-                    matrix.set(savedMatrix);
-                    matrix.postTranslate(event.getX() - start.x, event.getY()
-                            - start.y);
-
-                } else if (mode == ZOOM && event.getPointerCount() == 2) {
-                    float newDist = spacing(event);
-                    matrix.set(savedMatrix);
-                    if (newDist > 10f) {
-                        scale = newDist / oldDist;
-                        matrix.postScale(scale, scale, mid.x, mid.y);
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    oldDist = spacing(event);
+                    if (oldDist > 10f) {
+                        savedMatrix.set(matrix);
+                        midPoint(mid, event);
+                        mode = ZOOM;
                     }
-                    if (lastEvent != null) {
-                        newRot = rotation(event);
-                        float r = newRot - d;
-                        matrix.postRotate(r, view.getMeasuredWidth() / 2,
-                                view.getMeasuredHeight() / 2);
-                    }
-                }
-                break;
+                    lastEvent = new float[4];
+                    lastEvent[0] = event.getX(0);
+                    lastEvent[1] = event.getX(1);
+                    lastEvent[2] = event.getY(0);
+                    lastEvent[3] = event.getY(1);
+                    d = rotation(event);
+                    break;
 
-        }
-        view.setImageMatrix(matrix);
-        return true;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_POINTER_UP:
+                    mode = NONE;
+                    Log.e("mode=NONE", "mode=NONE" );
+                    break;
+
+
+                case MotionEvent.ACTION_MOVE:
+
+
+
+//                if(clickStart){
+//
+//
+//                    float getX = event.getX();
+//
+//                    float alpha = getX/widthDisplay;
+//
+//
+////                    float alpha = event.getX()/4;
+////                    transparentEffectImg.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+////                    transparentEffectImg.setAlpha(alpha);
+//
+//                    Log.e("alpha", alpha + "++++");
+//                    Log.e("getX", getX + "++++");
+//                    Log.e("widthDisplay", widthDisplay + "++++");
+//                } else {
+
+                    if (mode == DRAG) {
+                        matrix.set(savedMatrix);
+                        matrix.postTranslate(event.getX() - start.x, event.getY()
+                                - start.y);
+
+
+
+
+                      //  Log.e("moveing",event.getX() + " x " + start.x + " x " + event.getY() + " x " + start.y);
+
+                    } else if (mode == ZOOM && event.getPointerCount() == 2) {
+                        float newDist = spacing(event);
+                        matrix.set(savedMatrix);
+                        if (newDist > 10f) {
+                            scale = newDist / oldDist;
+                            matrix.postScale(scale, scale, mid.x, mid.y);
+                        }
+                        if (lastEvent != null) {
+                            newRot = rotation(event);
+                            float r = newRot - d;
+                            matrix.postRotate(r, view.getMeasuredWidth() / 2,
+                                    view.getMeasuredHeight() / 2);
+                        }
+                    }
+
+
+
+
+
+                    break;
+
+            }
+            view.setImageMatrix(matrix);
+            return true;
+
+        } return false;
+
+
+
     }
 
 
@@ -577,6 +615,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
 
             case R.id.cancel_relativeLayout:
+                clickStart = false;
                 Log.e("cancel","cancel true +++");
                 recordButton.setVisibility(View.VISIBLE);
                 flashSwitchCameraView.setVisibility(View.VISIBLE);
@@ -586,19 +625,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.my_album_art_fab:
+                clickStart = false;
+                opacityBar.setVisibility(View.GONE);
                 ImagePicker.pickImage(this, "Select your image:");
                 break;
 
             case R.id.start_relativeLayout:
+                clickStart = true;
                 Log.e("start","start true +++");
                 menu.close(true);
+                opacityBar.setVisibility(View.VISIBLE);
 //                transparentEffectImg.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 recordButton.setVisibility(View.GONE);
                 flashSwitchCameraView.setVisibility(View.GONE);
                 startCancelLayout.setVisibility(View.GONE);
+
+
+                transparentEffectImg.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+
+                        float alpha = event.getX()/widthDisplay;
+
+                        Log.e("alpha", alpha + "+++++++++++");
+
+                        v.animate().alpha(alpha);
+                        return true;
+                    }
+                });
                 break;
 
             case R.id.camera_fab:
+                clickStart = false;
                 menu.close(true);
                 recordButton.setVisibility(View.VISIBLE);
                 flashSwitchCameraView.setVisibility(View.VISIBLE);
@@ -606,7 +664,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 opacityBar.setVisibility(View.GONE);
                 break;
 
+            case R.id.my_settings_fab:
+                menu.close(true);
+                startActivity(new Intent(MainActivity.this,SettingsActivity.class));
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+
+                break;
+
             case R.id.my_album_fab:
+                clickStart = false;
+                opacityBar.setVisibility(View.GONE);
                 startActivityForResult(new Intent(MainActivity.this, MyAlbumActivity.class),1);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
@@ -616,7 +683,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setOnClick(){
-
+        settingsFab.setOnClickListener(this);
         photoFab.setOnClickListener(this);
         albumFab.setOnClickListener(this);
         myAlbumArtFab.setOnClickListener(this);

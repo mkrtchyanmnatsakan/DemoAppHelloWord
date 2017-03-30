@@ -6,5 +6,6 @@
     <color name="colorUnderlayn">#FFFFFF</color>
     <color name="colorBackground">#eeeeee</color>
     <color name="colorUnderlaynMyAlbom">#e0e0e0</color>
+    <color name="colorText">#bdbdbd</color>
 
 </resources>

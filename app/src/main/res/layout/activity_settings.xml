@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_settings"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorUnderlayn"
+    tools:context="com.github.florent37.camerafragment.sample.SettingsActivity">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="75dp">
+
+            <RelativeLayout
+                android:id="@+id/beck_relativeLayout"
+                android:layout_width="60dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:padding="15dp"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/beck_imageView"
+                    android:src="@drawable/ic_beck_copy_art"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+
+            </RelativeLayout>
+
+
+
+            <TextView
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:textColor="@color/colorAccent"
+                android:text="Settings"
+                android:textSize="24sp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+
+            android:background="@color/colorBackground"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp">
+
+            <TextView
+                android:textSize="20sp"
+                android:text="Rate App"
+                android:gravity="center"
+                android:layout_gravity = "center"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:background="@color/colorBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="Follow US:"
+                    android:textSize="28sp"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                
+                <View
+                    android:layout_margin="10dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_gravity="center"
+                    android:layout_width="80dp"
+                    android:layout_height="1.5dp">
+
+                </View>
+
+                <LinearLayout
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp">
+
+                    <RelativeLayout
+                        android:id="@+id/facebook_layout"
+                        android:padding="5dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:src="@drawable/post_type_bubble_facebook"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/instagram_layout"
+                        android:padding="5dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:src="@drawable/post_type_bubble_instagram"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/twitter_layout"
+                        android:padding="5dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:src="@drawable/post_type_bubble_twitter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/pinteras_layout"
+                        android:padding="5dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:src="@drawable/pinteras"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/youtube_layout"
+                        android:padding="5dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:src="@drawable/post_type_bubble_youtube"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/google_plus_layout"
+                        android:padding="5dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:src="@drawable/post_type_bubble_googleplus"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </RelativeLayout>
+
+
+
+
+
+
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:padding="10dp"
+                        android:textSize="18sp"
+                        android:text="www.copyart.co"
+                        android:textColor="@color/colorText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</RelativeLayout>

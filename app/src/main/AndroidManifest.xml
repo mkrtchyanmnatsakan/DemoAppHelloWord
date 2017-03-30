@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.florent37.camerafragment.sample">
+          package="com.github.florent37.camerafragment.sample">
 
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <permission
         android:name="android.permission.FLASHLIGHT"
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
-        android:protectionLevel="normal" />
+        android:protectionLevel="normal"/>
 
     <application
         android:allowBackup="true"
@@ -22,31 +22,34 @@
         <activity
             android:name="com.github.florent37.camerafragment.PreviewActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ThemeFullscreen" />
+            android:theme="@style/ThemeFullscreen"/>
         <activity
             android:name=".MainActivityCustoms"
             android:screenOrientation="portrait"
-            android:theme="@style/ThemeFullscreen" />
+            android:theme="@style/ThemeFullscreen"/>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeFullscreen">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".MyAlbumActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeFullscreen">
-
         </activity>
-        <activity android:name=".ImageListActivity"
+        <activity
+            android:name=".ImageListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeFullscreen">
-
+        </activity>
+        <activity android:name=".SettingsActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/ThemeFullscreen">
         </activity>
     </application>
 
