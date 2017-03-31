@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,6 +26,13 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.github.florent37.camerafragment.CameraFragment;
@@ -198,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        widthDisplay  = getWindowManager().getDefaultDisplay().getWidth();
+        widthDisplay = getWindowManager().getDefaultDisplay().getWidth();
         heightDisolay = getWindowManager().getDefaultDisplay().getHeight();
 
     }
@@ -234,28 +242,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             cameraFragment.
                     takePhotoOrCaptureVideo(
                             new CameraFragmentResultAdapter() {
-                                                       @Override
-                                                       public void onVideoRecorded(String filePath) {
-                                                           Toast.makeText(getBaseContext(), "onVideoRecorded " + filePath, Toast.LENGTH_SHORT).show();
-                                                       }
+                                @Override
+                                public void onVideoRecorded(String filePath) {
+                                    Toast.makeText(getBaseContext(), "onVideoRecorded " + filePath, Toast.LENGTH_SHORT).show();
+                                }
 
-                                                       @Override
-                                                       public void onPhotoTaken(byte[] bytes, String filePath) {
-                                                           transparentEffectImg.setVisibility(View.VISIBLE);
-                                                         //  opacityBar.setVisibility(View.VISIBLE);
-                                                           recordButton.setVisibility(View.GONE);
-                                                           flashSwitchCameraView.setVisibility(View.VISIBLE);
-                                                           transparentEffectImg.setAlpha(0.5f);
-                                                           //   transparentEffectImg.setImageBitmap(getBitmapFromPath(filePath));
-                                                           Bitmap rootBitmap = scaleDown(getBitmapFromPath(filePath), 1000, true);
-                                                           Bitmap bitmap = rotateBitmap(rootBitmap,90);
-                                                           transparentEffectImg.setImageBitmap(bitmap);
-                                                           /** To DO*/
-                                                           Toast.makeText(getBaseContext(), "onPhotoTaken " + filePath, Toast.LENGTH_SHORT).show();
-                                                       }
-                                                   },
-                    "/storage/self/primary",
-                    "photo0");
+                                @Override
+                                public void onPhotoTaken(byte[] bytes, String filePath) {
+                                    transparentEffectImg.setVisibility(View.VISIBLE);
+                                    //  opacityBar.setVisibility(View.VISIBLE);
+                                    recordButton.setVisibility(View.GONE);
+                                    flashSwitchCameraView.setVisibility(View.VISIBLE);
+                                    transparentEffectImg.setAlpha(0.5f);
+                                    //   transparentEffectImg.setImageBitmap(getBitmapFromPath(filePath));
+                                    Bitmap rootBitmap = scaleDown(getBitmapFromPath(filePath), 1000, true);
+                                    Bitmap bitmap = rotateBitmap(rootBitmap, 90);
+                                    transparentEffectImg.setImageBitmap(bitmap);
+                                    /** To DO*/
+                                    Toast.makeText(getBaseContext(), "onPhotoTaken " + filePath, Toast.LENGTH_SHORT).show();
+                                }
+                            },
+                            "/storage/self/primary",
+                            "photo0");
         }
     }
 
@@ -453,7 +461,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("onActvityReasa", "true +++");
         Log.e("resultCode", resultCode + "+++");
 
-        switch (resultCode){
+        switch (resultCode) {
             case -1:
 
                 Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);// Galery
@@ -463,12 +471,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     menu.close(true);
                     startCancelLayout.setVisibility(View.VISIBLE);
                     transparentEffectImg.setVisibility(View.VISIBLE);
-                 //   opacityBar.setVisibility(View.VISIBLE);
+                    //   opacityBar.setVisibility(View.VISIBLE);
                     transparentEffectImg.setAlpha(0.5f);
                     transparentEffectImg.setImageBitmap(bitmap);
                     Log.e("bitmap", bitmap.getGenerationId() + "+++");
                     Log.e("bitmap", "notNull+++");
-
 
 
                 }
@@ -479,23 +486,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 InputStream is = null;
                 try {
-                    is = getAssets().open(SharedPreferenceHelper.getSharedPreferenceString(this,ConstantValues.CURRANT_PATH,""));
+                    is = getAssets().open(SharedPreferenceHelper.getSharedPreferenceString(this, ConstantValues.CURRANT_PATH, ""));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 menu.close(true);
                 startCancelLayout.setVisibility(View.VISIBLE);
-              //  opacityBar.setVisibility(View.VISIBLE);
-               transparentEffectImg.setVisibility(View.VISIBLE);
+                //  opacityBar.setVisibility(View.VISIBLE);
+                transparentEffectImg.setVisibility(View.VISIBLE);
                 int width = (int) (widthDisplay * 0.2);
-                int height  = (int) (heightDisolay * 0.2);
+                int height = (int) (heightDisolay * 0.2);
 
-                Picasso.with(this)
+                /*Picasso.with(this)
                         .load("file:///android_asset/"+SharedPreferenceHelper.getSharedPreferenceString(this,ConstantValues.CURRANT_PATH,""))
                         .resize(widthDisplay,heightDisolay)
-                        .into(transparentEffectImg);
+                        .into(transparentEffectImg);*/
 
-               // Bitmap bitmapAlbum = BitmapFactory.decodeStream(is);
+                Glide.with(this)
+                        .load("file:///android_asset/" + SharedPreferenceHelper.getSharedPreferenceString(this, ConstantValues.CURRANT_PATH, ""))
+                        .asBitmap()
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                                transparentEffectImg.setImageBitmap(resizeBitmapForScreen(resource));
+                            }
+                        });
+
+                // Bitmap bitmapAlbum = BitmapFactory.decodeStream(is);
 
 //                transparentEffectImg.setImageBitmap(bitmapAlbum);
                 transparentEffectImg.setAlpha(0.5f);
@@ -507,10 +525,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    Bitmap resizeBitmapForScreen(Bitmap bitmap) {
+
+        Log.e("RRRR", "RRRRR");
+        if (bitmap.getHeight() >= UTILUS.getDisplayHeight(this)) {
+            bitmap = Bitmap.createScaledBitmap(bitmap, (int) (UTILUS.getDisplayWidth(this) * 0.7),
+                    (int) (UTILUS.getDisplayHeight(this) * 0.7), true);
+            return resizeBitmapForScreen(bitmap);
+        } else return bitmap;
+    }
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-        if(!clickStart){
+        if (!clickStart) {
 
             ImageView view = (ImageView) v;
             view.setScaleType(ImageView.ScaleType.MATRIX);
@@ -520,7 +548,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case MotionEvent.ACTION_DOWN: //first finger down only
                     savedMatrix.set(matrix);
                     start.set(event.getX(), event.getY());
-                    Log.e("mode=Drag", "mode=DRAG" );
+                    Log.e("mode=Drag", "mode=DRAG");
                     mode = DRAG;
                     break;
 
@@ -542,12 +570,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_POINTER_UP:
                     mode = NONE;
-                    Log.e("mode=NONE", "mode=NONE" );
+                    Log.e("mode=NONE", "mode=NONE");
                     break;
 
 
                 case MotionEvent.ACTION_MOVE:
-
 
 
 //                if(clickStart){
@@ -573,9 +600,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 - start.y);
 
 
-
-
-                      //  Log.e("moveing",event.getX() + " x " + start.x + " x " + event.getY() + " x " + start.y);
+                        //  Log.e("moveing",event.getX() + " x " + start.x + " x " + event.getY() + " x " + start.y);
 
                     } else if (mode == ZOOM && event.getPointerCount() == 2) {
                         float newDist = spacing(event);
@@ -593,17 +618,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
 
 
-
-
-
                     break;
 
             }
             view.setImageMatrix(matrix);
             return true;
 
-        } return false;
+        } else {
+            float alpha = event.getX() / widthDisplay;
 
+            Log.e("alpha", alpha + "+++++++++++");
+
+            v.animate().alpha(alpha);
+        }
+        return false;
 
 
     }
@@ -616,7 +644,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.cancel_relativeLayout:
                 clickStart = false;
-                Log.e("cancel","cancel true +++");
+                Log.e("cancel", "cancel true +++");
                 recordButton.setVisibility(View.VISIBLE);
                 flashSwitchCameraView.setVisibility(View.VISIBLE);
                 startCancelLayout.setVisibility(View.GONE);
@@ -632,27 +660,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.start_relativeLayout:
                 clickStart = true;
-                Log.e("start","start true +++");
+                Log.e("start", "start true +++");
                 menu.close(true);
                 opacityBar.setVisibility(View.VISIBLE);
 //                transparentEffectImg.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 recordButton.setVisibility(View.GONE);
                 flashSwitchCameraView.setVisibility(View.GONE);
                 startCancelLayout.setVisibility(View.GONE);
-
-
-                transparentEffectImg.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-
-                        float alpha = event.getX()/widthDisplay;
-
-                        Log.e("alpha", alpha + "+++++++++++");
-
-                        v.animate().alpha(alpha);
-                        return true;
-                    }
-                });
                 break;
 
             case R.id.camera_fab:
@@ -666,7 +680,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.my_settings_fab:
                 menu.close(true);
-                startActivity(new Intent(MainActivity.this,SettingsActivity.class));
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 overridePendingTransition(R.anim.enter, R.anim.exit);
 
                 break;
@@ -674,7 +688,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.my_album_fab:
                 clickStart = false;
                 opacityBar.setVisibility(View.GONE);
-                startActivityForResult(new Intent(MainActivity.this, MyAlbumActivity.class),1);
+                startActivityForResult(new Intent(MainActivity.this, MyAlbumActivity.class), 1);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
 
@@ -682,7 +696,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void setOnClick(){
+    private void setOnClick() {
         settingsFab.setOnClickListener(this);
         photoFab.setOnClickListener(this);
         albumFab.setOnClickListener(this);
@@ -711,36 +725,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void midPoint(PointF point, MotionEvent event) {
         float x = event.getX(0) + event.getX(1);
         float y = event.getY(0) + event.getY(1);
-        point.set(x/2, y/2);
+        point.set(x / 2, y / 2);
 
     }
 
     private void dumpEvent(MotionEvent event) {
-        String names[] = { "DOWN" , "UP" , "MOVE" , "CANCEL" , "OUTSIDE" ,
-                "POINTER_DOWN" , "POINTER_UP" , "7?" , "8?" , "9?" };
+        String names[] = {"DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE",
+                "POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?"};
         StringBuilder sb = new StringBuilder();
         int action = event.getAction();
         int actionCode = action & MotionEvent.ACTION_MASK;
-        sb.append("event ACTION_" ).append(names[actionCode]);
+        sb.append("event ACTION_").append(names[actionCode]);
         if (actionCode == MotionEvent.ACTION_POINTER_DOWN
                 || actionCode == MotionEvent.ACTION_POINTER_UP) {
-            sb.append("(pid " ).append(
+            sb.append("(pid ").append(
                     action >> MotionEvent.ACTION_POINTER_ID_SHIFT);
-            sb.append(")" );
+            sb.append(")");
         }
-        sb.append("[" );
+        sb.append("[");
 
         for (int i = 0; i < event.getPointerCount(); i++) {
-            sb.append("#" ).append(i);
-            sb.append("(pid " ).append(event.getPointerId(i));
-            sb.append(")=" ).append((int) event.getX(i));
-            sb.append("," ).append((int) event.getY(i));
+            sb.append("#").append(i);
+            sb.append("(pid ").append(event.getPointerId(i));
+            sb.append(")=").append((int) event.getX(i));
+            sb.append(",").append((int) event.getY(i));
             if (i + 1 < event.getPointerCount())
 
-                sb.append(";" );
+                sb.append(";");
         }
 
-        sb.append("]" );
+        sb.append("]");
         Log.e("sb string", sb.toString());
     }
 
@@ -762,7 +776,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    Bitmap getBitmapFromPath(String path){
+    Bitmap getBitmapFromPath(String path) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap bitmap = BitmapFactory.decodeFile(path, options);
