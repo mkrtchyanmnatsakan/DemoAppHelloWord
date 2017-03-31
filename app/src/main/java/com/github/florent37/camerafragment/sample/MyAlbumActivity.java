@@ -43,8 +43,7 @@ ImageView beckImageView;
         switch (view.getId()){
 
             case R.id.beck_imageView:
-                finish();
-                overridePendingTransition(R.anim.enter, R.anim.exit);
+               onBackPressed();
                 break;
 
             case R.id.cartoon_relativeLayout:
@@ -83,7 +82,8 @@ ImageView beckImageView;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.enter, R.anim.exit);
+        overridePendingTransition(R.anim.back_enter, R.anim.back_exit);
+
     }
 
 

@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -76,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private float d;
     private float newRot;
     //////////////////////////
-    private Bitmap dinoBMP;
     public static final String FRAGMENT_TAG = "camera";
     private static final int REQUEST_CAMERA_PERMISSIONS = 931;
     private boolean clickStart;
@@ -179,13 +179,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transparentEffectImg.setOnTouchListener(this);
 
 
-        dinoBMP = BitmapFactory.decodeResource(getResources(), R.drawable.transparent_imag);
-        Bitmap scaledBitmap = scaleDown(dinoBMP, 1000, true);
-
-        transparentEffectImg.setImageBitmap(scaledBitmap);
-        transparentEffectImg.getLayoutParams().height = getWindowManager().getDefaultDisplay().getHeight();
-        transparentEffectImg.getLayoutParams().width = getWindowManager().getDefaultDisplay().getWidth();
-        transparentEffectImg.setScaleType(ImageView.ScaleType.FIT_START);
+       /* transparentEffectImg.getLayoutParams().height = getWindowManager().getDefaultDisplay().getHeight();
+        transparentEffectImg.getLayoutParams().width = getWindowManager().getDefaultDisplay().getWidth();*/
+        //transparentEffectImg.setScaleType(ImageView.ScaleType.FIT_START);
 
         ImagePicker.setMinQuality(1000, 800);
 
@@ -258,6 +254,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     Bitmap rootBitmap = scaleDown(getBitmapFromPath(filePath), 1000, true);
                                     Bitmap bitmap = rotateBitmap(rootBitmap, 90);
                                     transparentEffectImg.setImageBitmap(bitmap);
+
                                     /** To DO*/
                                     Toast.makeText(getBaseContext(), "onPhotoTaken " + filePath, Toast.LENGTH_SHORT).show();
                                 }
@@ -509,7 +506,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                transparentEffectImg.setImageBitmap(resizeBitmapForScreen(resource));
+                                Bitmap bitmap1 = resizeBitmapForScreen(resource);
+                                transparentEffectImg.setImageBitmap(bitmap1);
+                                transparentEffectImg.setScaleType(ImageView.ScaleType.MATRIX);
                             }
                         });
 
@@ -625,17 +624,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return true;
 
         } else {
-            float alpha = event.getX() / widthDisplay;
+            Log.e("Action", "Move" + event.getAction());
 
-            Log.e("alpha", alpha + "+++++++++++");
 
-            v.animate().alpha(alpha);
+            if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                float alpha = event.getX() / widthDisplay;
+                progValue(alpha);
+            }
+
+            return true;
+            //v.animate().alpha(alpha);
         }
-        return false;
 
 
     }
 
+
+    private void progValue(float x) {
+        opacityBar.setProgress((int) (x * 255));
+
+    }
 
     @Override
     public void onClick(View v) {
