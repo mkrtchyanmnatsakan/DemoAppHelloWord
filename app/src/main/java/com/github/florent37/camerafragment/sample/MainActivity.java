@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.PointF;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,7 +18,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -29,11 +27,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.SizeReadyCallback;
-import com.bumptech.glide.request.target.Target;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.github.florent37.camerafragment.CameraFragment;
@@ -49,7 +44,6 @@ import com.github.florent37.camerafragment.widgets.FlashSwitchView;
 import com.github.florent37.camerafragment.widgets.MediaActionSwitchView;
 import com.github.florent37.camerafragment.widgets.RecordButton;
 import com.mvc.imagepicker.ImagePicker;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -80,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String FRAGMENT_TAG = "camera";
     private static final int REQUEST_CAMERA_PERMISSIONS = 931;
     private boolean clickStart;
+
+    private int widthDisplay;
+    private int heightDisolay;
+
 
 
     @Bind(R.id.settings_view)
@@ -121,11 +119,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.start_relativeLayout)
     RelativeLayout startRelativeLayout;
 
+    @Bind(R.id.effect_layout)
+    RelativeLayout effectLayout;
+
     @Bind(R.id.cancel_relativeLayout)
     RelativeLayout cancelRelativeLayout;
 
+    @Bind(R.id.ready_relativeLayout)
+    RelativeLayout readyLayout;
+
     @Bind(R.id.opacity)
     SeekBar opacityBar;
+
+    @Bind(R.id.seekbar_relative_layout)
+    RelativeLayout seekbarLayout;
 
     @Bind(R.id.camera_fab)
     FloatingActionButton photoFab;
@@ -141,8 +148,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Bind(R.id.menu)
     FloatingActionMenu menu;
-    private int widthDisplay;
-    private int heightDisolay;
+
+
+
 
 
     @Override
@@ -150,6 +158,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        Log.e("onCreate","run onCreate metod");
 
         if (Build.VERSION.SDK_INT > 15) {
             final String[] permissions = {
@@ -212,16 +222,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final CameraFragmentApi cameraFragment = getCameraFragment();
         if (cameraFragment != null) {
             cameraFragment.toggleFlashMode();
+
         }
     }
 
     @OnClick(R.id.front_back_camera_switcher)
     public void onSwitchCameraClicked() {
 
+        Log.e("onSwitchCameraClicked", "true");
+
         flashSwitchCameraView.setVisibility(View.VISIBLE);
         final CameraFragmentApi cameraFragment = getCameraFragment();
         if (cameraFragment != null) {
+
+            Log.e("cameraFragment","not null");
             cameraFragment.switchCameraTypeFrontBack();
+
         }
     }
 
@@ -246,6 +262,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 @Override
                                 public void onPhotoTaken(byte[] bytes, String filePath) {
                                     transparentEffectImg.setVisibility(View.VISIBLE);
+                                    effectLayout.setVisibility(View.VISIBLE);
                                     //  opacityBar.setVisibility(View.VISIBLE);
                                     recordButton.setVisibility(View.GONE);
                                     flashSwitchCameraView.setVisibility(View.VISIBLE);
@@ -329,20 +346,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     cameraSwitchView.displayFrontCamera();
                 }
 
-                @Override
-                public void onFlashAuto() {
-                    flashSwitchView.displayFlashAuto();
-                }
+//                @Override
+//                public void onFlashAuto() {
+//                    flashSwitchView.displayFlashAuto();
+//                }
 
                 @Override
                 public void onFlashOn() {
                     flashSwitchView.displayFlashOn();
                 }
 
-                @Override
-                public void onFlashOff() {
-                    flashSwitchView.displayFlashOff();
-                }
+//                @Override
+//                public void onFlashOff() {
+//                    flashSwitchView.displayFlashOff();
+//                }
 
                 @Override
                 public void onCameraSetupForPhoto() {
@@ -468,6 +485,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     menu.close(true);
                     startCancelLayout.setVisibility(View.VISIBLE);
                     transparentEffectImg.setVisibility(View.VISIBLE);
+                    effectLayout.setVisibility(View.VISIBLE);
                     //   opacityBar.setVisibility(View.VISIBLE);
                     transparentEffectImg.setAlpha(0.5f);
                     transparentEffectImg.setImageBitmap(bitmap);
@@ -491,6 +509,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startCancelLayout.setVisibility(View.VISIBLE);
                 //  opacityBar.setVisibility(View.VISIBLE);
                 transparentEffectImg.setVisibility(View.VISIBLE);
+                effectLayout.setVisibility(View.VISIBLE);
                 int width = (int) (widthDisplay * 0.2);
                 int height = (int) (heightDisolay * 0.2);
 
@@ -630,6 +649,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (event.getAction() == MotionEvent.ACTION_MOVE) {
                 float alpha = event.getX() / widthDisplay;
                 progValue(alpha);
+            } if(event.getAction() == MotionEvent.ACTION_UP){
+                opacityBar.setVisibility(View.GONE);
+                seekbarLayout.setVisibility(View.GONE);
             }
 
             return true;
@@ -641,6 +663,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void progValue(float x) {
+        opacityBar.setVisibility(View.VISIBLE);
+        seekbarLayout.setVisibility(View.VISIBLE);
         opacityBar.setProgress((int) (x * 255));
 
     }
@@ -650,43 +674,82 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (v.getId()) {
 
+
+            case R.id.ready_relativeLayout:
+                menu.open(true);
+                transparentEffectImg.setVisibility(View.GONE);
+                effectLayout.setVisibility(View.GONE);
+                readyLayout.setVisibility(View.GONE);
+
+                break;
+
             case R.id.cancel_relativeLayout:
+                readyLayout.setVisibility(View.GONE);
+                menu.open(true);
                 clickStart = false;
                 Log.e("cancel", "cancel true +++");
                 recordButton.setVisibility(View.VISIBLE);
                 flashSwitchCameraView.setVisibility(View.VISIBLE);
                 startCancelLayout.setVisibility(View.GONE);
                 transparentEffectImg.setVisibility(View.GONE);
+                effectLayout.setVisibility(View.GONE);
                 opacityBar.setVisibility(View.GONE);
+                seekbarLayout.setVisibility(View.GONE);
                 break;
 
             case R.id.my_album_art_fab:
+                readyLayout.setVisibility(View.GONE);
+                startCancelLayout.setVisibility(View.GONE);
+                menu.close(true);
                 clickStart = false;
                 opacityBar.setVisibility(View.GONE);
+                seekbarLayout.setVisibility(View.GONE);
+                recordButton.setVisibility(View.GONE);
+                flashSwitchCameraView.setVisibility(View.GONE);
                 ImagePicker.pickImage(this, "Select your image:");
                 break;
 
             case R.id.start_relativeLayout:
+                readyLayout.setVisibility(View.VISIBLE);
                 clickStart = true;
                 Log.e("start", "start true +++");
                 menu.close(true);
-                opacityBar.setVisibility(View.VISIBLE);
+              //  opacityBar.setVisibility(View.VISIBLE);
 //                transparentEffectImg.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 recordButton.setVisibility(View.GONE);
                 flashSwitchCameraView.setVisibility(View.GONE);
                 startCancelLayout.setVisibility(View.GONE);
+
+
+                //run seekbar
+
+
+
+                //
+
+
+
+
                 break;
 
             case R.id.camera_fab:
+                readyLayout.setVisibility(View.GONE);
                 clickStart = false;
                 menu.close(true);
                 recordButton.setVisibility(View.VISIBLE);
+                startCancelLayout.setVisibility(View.GONE);
                 flashSwitchCameraView.setVisibility(View.VISIBLE);
                 transparentEffectImg.setVisibility(View.GONE);
+                effectLayout.setVisibility(View.GONE);
                 opacityBar.setVisibility(View.GONE);
+                seekbarLayout.setVisibility(View.GONE);
                 break;
 
             case R.id.my_settings_fab:
+                readyLayout.setVisibility(View.GONE);
+                startCancelLayout.setVisibility(View.GONE);
+                recordButton.setVisibility(View.GONE);
+                flashSwitchCameraView.setVisibility(View.GONE);
                 menu.close(true);
                 startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 overridePendingTransition(R.anim.enter, R.anim.exit);
@@ -694,8 +757,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.my_album_fab:
+                readyLayout.setVisibility(View.GONE);
+                startCancelLayout.setVisibility(View.GONE);
+                menu.close(true);
                 clickStart = false;
                 opacityBar.setVisibility(View.GONE);
+                seekbarLayout.setVisibility(View.GONE);
+                recordButton.setVisibility(View.GONE);
+                flashSwitchCameraView.setVisibility(View.GONE);
                 startActivityForResult(new Intent(MainActivity.this, MyAlbumActivity.class), 1);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
@@ -705,6 +774,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setOnClick() {
+        readyLayout.setOnClickListener(this);
+        effectLayout.setOnClickListener(this);
         settingsFab.setOnClickListener(this);
         photoFab.setOnClickListener(this);
         albumFab.setOnClickListener(this);

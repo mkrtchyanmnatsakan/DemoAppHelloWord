@@ -33,8 +33,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     @Bind(R.id.pinteras_layout)
     RelativeLayout pinterasLayout;
 
-    @Bind(R.id.youtube_layout)
-    RelativeLayout youtubeLayout;
+
 
     @Bind(R.id.google_plus_layout)
     RelativeLayout googlePlusLayout;
@@ -60,7 +59,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         instagramLayout.setOnClickListener(this);
         twitterLayout.setOnClickListener(this);
         pinterasLayout.setOnClickListener(this);
-        youtubeLayout.setOnClickListener(this);
         googlePlusLayout.setOnClickListener(this);
         facebookLayout.setOnClickListener(this);
         pageLayout.setOnClickListener(this);

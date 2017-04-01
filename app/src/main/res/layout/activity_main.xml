@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         tools:visibility="gone"
-        android:text="Add camera" />
+         />
 
     <RelativeLayout
         android:id="@+id/cameraLayout"
@@ -52,20 +52,115 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
 
-
-
-
-            <SeekBar
-
-                android:padding="5dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/ruler"
+            <RelativeLayout
                 android:visibility="gone"
-                android:id="@+id/opacity"
+                android:padding="-3dp"
+                android:id="@+id/seekbar_relative_layout"
+                android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="255"
-                android:progress="255" />
+                android:layout_height="20dp">
+
+
+
+                <SeekBar
+                    android:layout_marginBottom="-9dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ruler"
+                    android:visibility="gone"
+                    android:id="@+id/opacity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:max="255"
+                    android:progress="255" />
+
+                <!--android:progressDrawable="@drawable/copy_art_plus"-->
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/effect_layout"
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_width="80dp"
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:padding="5dp"
+                    android:src="@drawable/ic_effect_copy"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:id="@+id/ready_relativeLayout"
+                android:layout_width="90dp"
+                android:layout_height="30dp">
+
+                <View
+
+                    android:background="@color/colorUnderlayn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0.5dp">
+
+
+                </View>
+
+                <View
+
+                    android:background="@color/colorUnderlayn"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent">
+
+                </View>
+
+                <View
+                    android:layout_alignParentLeft="true"
+                    android:background="@color/colorUnderlayn"
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"/>
+
+
+
+                <TextView
+                    android:textColor="@color/colorUnderlayn"
+                    android:id="@+id/ready_textView"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="   Ready   "
+                    android:textSize="15sp"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorUnderlayn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0.5dp">
+
+
+
+                </View>
+
+
+
+            </RelativeLayout>
+
+
+
+
+
+
 
 
             <LinearLayout
@@ -79,14 +174,14 @@
 
                 <RelativeLayout
                     android:id="@+id/start_relativeLayout"
-                    android:layout_width="75dp"
-                    android:layout_height="25dp">
+                    android:layout_width="90dp"
+                    android:layout_height="30dp">
 
                     <View
 
                         android:background="@color/colorUnderlayn"
                         android:layout_width="wrap_content"
-                        android:layout_height="1.5dp">
+                        android:layout_height="0.5dp">
 
 
                     </View>
@@ -95,7 +190,7 @@
 
                         android:background="@color/colorUnderlayn"
                         android:layout_alignParentRight="true"
-                        android:layout_width="1.5dp"
+                        android:layout_width="0.5dp"
                         android:layout_height="match_parent">
 
                     </View>
@@ -103,7 +198,7 @@
                     <View
                         android:layout_alignParentLeft="true"
                         android:background="@color/colorUnderlayn"
-                        android:layout_width="1.5dp"
+                        android:layout_width="0.5dp"
                         android:layout_height="match_parent"/>
 
 
@@ -113,7 +208,6 @@
                         android:id="@+id/start_textView"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:textStyle="bold"
                         android:text="   Start   "
                         android:textSize="15sp"
                         android:layout_centerInParent="true"
@@ -124,7 +218,7 @@
                         android:layout_alignParentBottom="true"
                         android:background="@color/colorUnderlayn"
                         android:layout_width="wrap_content"
-                        android:layout_height="1.5dp">
+                        android:layout_height="0.5dp">
 
 
 
@@ -136,16 +230,16 @@
 
                 <RelativeLayout
                     android:id="@+id/cancel_relativeLayout"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="75dp"
-                    android:layout_height="25dp">
+                    android:layout_marginTop="18dp"
+                    android:layout_width="90dp"
+                    android:layout_height="30dp">
 
 
                     <View
                         android:layout_alignParentBottom="true"
                         android:background="@color/colorUnderlayn"
                         android:layout_width="wrap_content"
-                        android:layout_height="1.5dp">
+                        android:layout_height="0.5dp">
 
 
 
@@ -156,7 +250,7 @@
 
                         android:background="@color/colorUnderlayn"
                         android:layout_width="wrap_content"
-                        android:layout_height="1.5dp">
+                        android:layout_height="0.5dp">
 
 
                     </View>
@@ -165,7 +259,7 @@
 
                         android:background="@color/colorUnderlayn"
                         android:layout_alignParentRight="true"
-                        android:layout_width="1.5dp"
+                        android:layout_width="0.5dp"
                         android:layout_height="match_parent">
 
                     </View>
@@ -173,7 +267,7 @@
                     <View
                         android:layout_alignParentLeft="true"
                         android:background="@color/colorUnderlayn"
-                        android:layout_width="1.5dp"
+                        android:layout_width="0.5dp"
                         android:layout_height="match_parent"/>
 
 
@@ -184,7 +278,6 @@
                         android:id="@+id/cancel_textView"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:textStyle="bold"
                         android:text="   Cancel   "
                         android:textSize="15sp"
                         android:layout_centerInParent="true"
@@ -332,20 +425,20 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="10dp"
                 android:layout_centerInParent="true"
-                android:layout_width="80dp"
-                android:layout_height="80dp"/>
+                android:layout_width="65dp"
+                android:layout_height="65dp"/>
 
 
             <com.github.clans.fab.FloatingActionMenu
                 android:id="@+id/menu"
 
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="-15dp"
+                android:layout_marginRight="-10dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginTop="10dp"
-                fab:menu_icon="@drawable/ic_action_name"
+                fab:menu_icon="@drawable/copy_art_plus"
                 fab:menu_labels_style="@style/MenuLabelsStyle"
                 fab:menu_labels_showAnimation="@anim/jump_from_down"
                 fab:menu_labels_hideAnimation="@anim/jump_to_down"

@@ -41,7 +41,7 @@
             <TextView
                 android:gravity="center"
                 android:layout_centerInParent="true"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorTextTitle"
                 android:text="Settings"
                 android:textSize="24sp"
                 android:layout_width="wrap_content"
@@ -168,19 +168,7 @@
 
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/youtube_layout"
-                        android:padding="5dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
 
-                        <ImageView
-                            android:src="@drawable/post_type_bubble_youtube"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-
-                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/google_plus_layout"
