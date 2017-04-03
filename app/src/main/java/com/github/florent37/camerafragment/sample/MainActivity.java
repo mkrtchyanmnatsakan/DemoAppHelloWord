@@ -1,6 +1,7 @@
 package com.github.florent37.camerafragment.sample;
 
 import android.Manifest;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -9,6 +10,7 @@ import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.app.ActivityCompat;
@@ -152,9 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Bind(R.id.menu)
     FloatingActionMenu menu;
-
-
-
+    private Handler seekBarHandler;
 
 
     @Override
@@ -729,6 +729,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.start_button:
+
+
                 readyLayout.setVisibility(View.VISIBLE);
                 readyRelativLayout.setVisibility(View.VISIBLE);
                 clickStart = true;
@@ -739,6 +741,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 recordButton.setVisibility(View.GONE);
                 flashSwitchCameraView.setVisibility(View.GONE);
                 startCancelLayout.setVisibility(View.GONE);
+
+
+               opacityBar.setVisibility(View.VISIBLE);
+                seekbarLayout.setVisibility(View.VISIBLE);
+
+                ValueAnimator anim = ValueAnimator.ofInt(0, opacityBar.getMax()/2+ opacityBar.getMax()/3);
+                anim.setDuration(2800);
+                anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        int animProgress = (Integer) animation.getAnimatedValue();
+                        opacityBar.setProgress(animProgress);
+                    }
+                });
+                anim.start();
+
+
+
+
+
+
+
 
 
                 //run seekbar
