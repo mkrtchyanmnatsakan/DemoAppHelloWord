@@ -66,9 +66,11 @@
 
 
                 <SeekBar
+                    android:thumb="@drawable/thumb_drawable"
                     android:layout_marginBottom="-9dp"
                     android:layout_centerInParent="true"
                     android:background="@drawable/ruler"
+                    android:progressDrawable="@drawable/progress_drawable"
                     android:visibility="gone"
                     android:id="@+id/opacity"
                     android:layout_width="match_parent"
