@@ -135,6 +135,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.seekbar_relative_layout)
     RelativeLayout seekbarLayout;
 
+    @Bind(R.id.ready_relativeLayout)
+    RelativeLayout readyRelativLayout;
+
     @Bind(R.id.camera_fab)
     FloatingActionButton photoFab;
 
@@ -264,6 +267,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 public void onPhotoTaken(byte[] bytes, String filePath) {
                                     transparentEffectImg.setVisibility(View.VISIBLE);
                                     effectLayout.setVisibility(View.VISIBLE);
+                                    readyRelativLayout.setVisibility(View.VISIBLE);
                                     //  opacityBar.setVisibility(View.VISIBLE);
                                     recordButton.setVisibility(View.GONE);
                                     flashSwitchCameraView.setVisibility(View.VISIBLE);
@@ -488,6 +492,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     transparentEffectImg.setVisibility(View.VISIBLE);
                     flashSwitchCameraView.setVisibility(View.GONE);
                     effectLayout.setVisibility(View.VISIBLE);
+                    readyRelativLayout.setVisibility(View.VISIBLE);
                     //   opacityBar.setVisibility(View.VISIBLE);
                     transparentEffectImg.setAlpha(0.5f);
                     transparentEffectImg.setImageBitmap(bitmap);
@@ -513,6 +518,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 transparentEffectImg.setVisibility(View.VISIBLE);
                 flashSwitchCameraView.setVisibility(View.GONE);
                 effectLayout.setVisibility(View.VISIBLE);
+                readyRelativLayout.setVisibility(View.VISIBLE);
                 int width = (int) (widthDisplay * 0.2);
                 int height = (int) (heightDisolay * 0.2);
 
@@ -677,11 +683,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (v.getId()) {
 
+            case R.id.ready_relativeLayout:
+                menu.open(true);
+                transparentEffectImg.setVisibility(View.GONE);
+                effectLayout.setVisibility(View.GONE);
+                readyRelativLayout.setVisibility(View.GONE);
+                readyLayout.setVisibility(View.GONE);
+                readyLayout.setVisibility(View.GONE);
+
 
             case R.id.ready_button:
                 menu.open(true);
                 transparentEffectImg.setVisibility(View.GONE);
                 effectLayout.setVisibility(View.GONE);
+                readyRelativLayout.setVisibility(View.GONE);
                 readyLayout.setVisibility(View.GONE);
 
                 break;
@@ -696,6 +711,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startCancelLayout.setVisibility(View.GONE);
                 transparentEffectImg.setVisibility(View.GONE);
                 effectLayout.setVisibility(View.GONE);
+                readyRelativLayout.setVisibility(View.GONE);
                 opacityBar.setVisibility(View.GONE);
                 seekbarLayout.setVisibility(View.GONE);
                 break;
@@ -714,6 +730,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.start_button:
                 readyLayout.setVisibility(View.VISIBLE);
+                readyRelativLayout.setVisibility(View.VISIBLE);
                 clickStart = true;
                 Log.e("start", "start true +++");
                 menu.close(true);
@@ -744,6 +761,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 flashSwitchCameraView.setVisibility(View.VISIBLE);
                 transparentEffectImg.setVisibility(View.GONE);
                 effectLayout.setVisibility(View.GONE);
+                readyRelativLayout.setVisibility(View.GONE);
                 opacityBar.setVisibility(View.GONE);
                 seekbarLayout.setVisibility(View.GONE);
                 break;
