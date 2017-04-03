@@ -703,6 +703,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.ready_button:
                 menu.open(true);
+                opacityBar.setVisibility(View.GONE);
+                seekbarLayout.setVisibility(View.GONE);
                 transparentEffectImg.setVisibility(View.GONE);
                 effectLayout.setVisibility(View.GONE);
                 readyRelativLayout.setVisibility(View.GONE);
@@ -751,13 +753,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 recordButton.setVisibility(View.GONE);
                 flashSwitchCameraView.setVisibility(View.GONE);
                 startCancelLayout.setVisibility(View.GONE);
-
-
                opacityBar.setVisibility(View.VISIBLE);
                 seekbarLayout.setVisibility(View.VISIBLE);
 
-                ValueAnimator anim = ValueAnimator.ofInt(0, opacityBar.getMax()/2+ opacityBar.getMax()/3);
-                anim.setDuration(2800);
+                ValueAnimator anim = ValueAnimator.ofInt(0, opacityBar.getMax()/2+ opacityBar.getMax()/4);
+                anim.setDuration(3000);
                 anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
@@ -910,6 +910,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onPause() {
         super.onPause();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     Bitmap getBitmapFromPath(String path) {
