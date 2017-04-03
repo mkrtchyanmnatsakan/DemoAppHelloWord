@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -116,17 +117,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.start_cancel_layout)
     LinearLayout startCancelLayout;
 
-    @Bind(R.id.start_relativeLayout)
-    RelativeLayout startRelativeLayout;
+    @Bind(R.id.start_button)
+    Button startRelativeLayout;
 
     @Bind(R.id.effect_layout)
     RelativeLayout effectLayout;
 
-    @Bind(R.id.cancel_relativeLayout)
-    RelativeLayout cancelRelativeLayout;
+    @Bind(R.id.cancel_button)
+    Button cancelRelativeLayout;
 
-    @Bind(R.id.ready_relativeLayout)
-    RelativeLayout readyLayout;
+    @Bind(R.id.ready_button)
+    Button readyLayout;
 
     @Bind(R.id.opacity)
     SeekBar opacityBar;
@@ -485,6 +486,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     menu.close(true);
                     startCancelLayout.setVisibility(View.VISIBLE);
                     transparentEffectImg.setVisibility(View.VISIBLE);
+                    flashSwitchCameraView.setVisibility(View.GONE);
                     effectLayout.setVisibility(View.VISIBLE);
                     //   opacityBar.setVisibility(View.VISIBLE);
                     transparentEffectImg.setAlpha(0.5f);
@@ -509,6 +511,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startCancelLayout.setVisibility(View.VISIBLE);
                 //  opacityBar.setVisibility(View.VISIBLE);
                 transparentEffectImg.setVisibility(View.VISIBLE);
+                flashSwitchCameraView.setVisibility(View.GONE);
                 effectLayout.setVisibility(View.VISIBLE);
                 int width = (int) (widthDisplay * 0.2);
                 int height = (int) (heightDisolay * 0.2);
@@ -675,7 +678,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
 
 
-            case R.id.ready_relativeLayout:
+            case R.id.ready_button:
                 menu.open(true);
                 transparentEffectImg.setVisibility(View.GONE);
                 effectLayout.setVisibility(View.GONE);
@@ -683,7 +686,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
-            case R.id.cancel_relativeLayout:
+            case R.id.cancel_button:
                 readyLayout.setVisibility(View.GONE);
                 menu.open(true);
                 clickStart = false;
@@ -709,7 +712,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ImagePicker.pickImage(this, "Select your image:");
                 break;
 
-            case R.id.start_relativeLayout:
+            case R.id.start_button:
                 readyLayout.setVisibility(View.VISIBLE);
                 clickStart = true;
                 Log.e("start", "start true +++");

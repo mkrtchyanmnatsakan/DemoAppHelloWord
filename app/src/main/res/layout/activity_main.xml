@@ -105,52 +105,12 @@
                 android:layout_width="90dp"
                 android:layout_height="30dp">
 
-                <View
-
-                    android:background="@color/colorUnderlayn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0.5dp">
-
-
-                </View>
-
-                <View
-
-                    android:background="@color/colorUnderlayn"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent">
-
-                </View>
-
-                <View
-                    android:layout_alignParentLeft="true"
-                    android:background="@color/colorUnderlayn"
-                    android:layout_width="0.5dp"
+                <Button
+                    android:id="@+id/ready_button"
+                    android:text="Ready"
+                    android:background="@drawable/my_button"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
-
-
-
-                <TextView
-                    android:textColor="@color/colorUnderlayn"
-                    android:id="@+id/ready_textView"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="   Ready   "
-                    android:textSize="15sp"
-                    android:layout_centerInParent="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <View
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/colorUnderlayn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0.5dp">
-
-
-
-                </View>
 
 
 
@@ -177,52 +137,12 @@
                     android:layout_width="90dp"
                     android:layout_height="30dp">
 
-                    <View
-
-                        android:background="@color/colorUnderlayn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0.5dp">
-
-
-                    </View>
-
-                    <View
-
-                        android:background="@color/colorUnderlayn"
-                        android:layout_alignParentRight="true"
-                        android:layout_width="0.5dp"
-                        android:layout_height="match_parent">
-
-                    </View>
-
-                    <View
-                        android:layout_alignParentLeft="true"
-                        android:background="@color/colorUnderlayn"
-                        android:layout_width="0.5dp"
+                    <Button
+                        android:id="@+id/start_button"
+                        android:background="@drawable/my_button"
+                        android:text="Start"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
-
-
-
-                    <TextView
-                        android:textColor="@color/colorUnderlayn"
-                        android:id="@+id/start_textView"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="   Start   "
-                        android:textSize="15sp"
-                        android:layout_centerInParent="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <View
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/colorUnderlayn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0.5dp">
-
-
-
-                    </View>
 
 
 
@@ -235,54 +155,12 @@
                     android:layout_height="30dp">
 
 
-                    <View
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/colorUnderlayn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0.5dp">
-
-
-
-                    </View>
-
-
-                    <View
-
-                        android:background="@color/colorUnderlayn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0.5dp">
-
-
-                    </View>
-
-                    <View
-
-                        android:background="@color/colorUnderlayn"
-                        android:layout_alignParentRight="true"
-                        android:layout_width="0.5dp"
-                        android:layout_height="match_parent">
-
-                    </View>
-
-                    <View
-                        android:layout_alignParentLeft="true"
-                        android:background="@color/colorUnderlayn"
-                        android:layout_width="0.5dp"
-                        android:layout_height="match_parent"/>
-
-
-
-
-                    <TextView
-                        android:textColor="@color/colorUnderlayn"
-                        android:id="@+id/cancel_textView"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="   Cancel   "
-                        android:textSize="15sp"
-                        android:layout_centerInParent="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                   <Button
+                       android:id="@+id/cancel_button"
+                       android:text="Cancel"
+                       android:background="@drawable/my_button"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"/>
 
 
 
