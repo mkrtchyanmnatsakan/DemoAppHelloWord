@@ -81,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int widthDisplay;
     private int heightDisolay;
 
+    private boolean swichCameraView;
+
 
 
     @Bind(R.id.settings_view)
@@ -239,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final CameraFragmentApi cameraFragment = getCameraFragment();
         if (cameraFragment != null) {
 
+            swichCameraView = true;
             Log.e("cameraFragment","not null");
             cameraFragment.switchCameraTypeFrontBack();
 
@@ -270,12 +273,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     readyRelativLayout.setVisibility(View.VISIBLE);
                                     //  opacityBar.setVisibility(View.VISIBLE);
                                     recordButton.setVisibility(View.GONE);
-                                    flashSwitchCameraView.setVisibility(View.VISIBLE);
                                     transparentEffectImg.setAlpha(0.5f);
                                     //   transparentEffectImg.setImageBitmap(getBitmapFromPath(filePath));
                                     Bitmap rootBitmap = scaleDown(getBitmapFromPath(filePath), 1000, true);
                                     Bitmap bitmap = rotateBitmap(rootBitmap, 90);
                                     transparentEffectImg.setImageBitmap(bitmap);
+
+
+                                    if(swichCameraView){
+                                        cameraFragment.switchCameraTypeFrontBack();
+                                    }
+
+
 
                                     /** To DO*/
                                     Toast.makeText(getBaseContext(), "onPhotoTaken " + filePath, Toast.LENGTH_SHORT).show();
@@ -706,8 +715,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 menu.open(true);
                 clickStart = false;
                 Log.e("cancel", "cancel true +++");
-                recordButton.setVisibility(View.VISIBLE);
-                flashSwitchCameraView.setVisibility(View.VISIBLE);
+                recordButton.setVisibility(View.GONE);
+                flashSwitchCameraView.setVisibility(View.GONE);
                 startCancelLayout.setVisibility(View.GONE);
                 transparentEffectImg.setVisibility(View.GONE);
                 effectLayout.setVisibility(View.GONE);
@@ -724,6 +733,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 opacityBar.setVisibility(View.GONE);
                 seekbarLayout.setVisibility(View.GONE);
                 recordButton.setVisibility(View.GONE);
+                effectLayout.setVisibility(View.GONE);
                 flashSwitchCameraView.setVisibility(View.GONE);
                 ImagePicker.pickImage(this, "Select your image:");
                 break;
@@ -796,6 +806,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 recordButton.setVisibility(View.GONE);
                 flashSwitchCameraView.setVisibility(View.GONE);
                 menu.close(true);
+                effectLayout.setVisibility(View.GONE);
                 startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 overridePendingTransition(R.anim.enter, R.anim.exit);
 
@@ -806,6 +817,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startCancelLayout.setVisibility(View.GONE);
                 menu.close(true);
                 clickStart = false;
+                effectLayout.setVisibility(View.GONE);
                 opacityBar.setVisibility(View.GONE);
                 seekbarLayout.setVisibility(View.GONE);
                 recordButton.setVisibility(View.GONE);
