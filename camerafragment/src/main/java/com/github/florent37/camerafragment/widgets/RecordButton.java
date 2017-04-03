@@ -25,7 +25,7 @@ public class RecordButton extends ImageButton {
     private Drawable takePhotoDrawable;
     private Drawable startRecordDrawable;
     private Drawable stopRecordDrawable;
-    private int iconPadding = 8;
+    private int iconPadding = 4;
     private int iconPaddingStop = 18;
 
     @Nullable

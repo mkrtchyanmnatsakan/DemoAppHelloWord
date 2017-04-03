@@ -5,10 +5,8 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.ImageButton;
 
 import com.github.florent37.camerafragment.R;
@@ -20,8 +18,8 @@ import com.github.florent37.camerafragment.R;
 public class FlashSwitchView extends ImageButton {
 
     private Drawable flashOnDrawable;
-    private Drawable flashOffDrawable;
-    private Drawable flashAutoDrawable;
+   // private Drawable flashOffDrawable;
+   // private Drawable flashAutoDrawable;
 
     public FlashSwitchView(@NonNull Context context) {
         this(context, null);
@@ -29,27 +27,27 @@ public class FlashSwitchView extends ImageButton {
 
     public FlashSwitchView(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
-        flashOnDrawable = ContextCompat.getDrawable(context, R.drawable.ic_flash_on_white_24dp);
-        flashOffDrawable = ContextCompat.getDrawable(context, R.drawable.ic_flash_off_white_24dp);
-        flashAutoDrawable = ContextCompat.getDrawable(context, R.drawable.ic_flash_auto_white_24dp);
+        flashOnDrawable = ContextCompat.getDrawable(context, R.drawable.camera_flash);
+     //   flashOffDrawable = ContextCompat.getDrawable(context, R.drawable.ic_flash_off_white_24dp);
+      //  flashAutoDrawable = ContextCompat.getDrawable(context, R.drawable.ic_flash_auto_white_24dp);
         init();
     }
 
     private void init() {
         setBackgroundColor(Color.TRANSPARENT);
-        displayFlashAuto();
+        displayFlashOn();
     }
 
-    public void displayFlashOff() {
-        setImageDrawable(flashOffDrawable);
-    }
+//    public void displayFlashOff() {
+//        setImageDrawable(flashOffDrawable);
+//    }
 
     public void displayFlashOn() {
         setImageDrawable(flashOnDrawable);
     }
 
     public void displayFlashAuto() {
-        setImageDrawable(flashAutoDrawable);
+       // setImageDrawable(flashAutoDrawable);
     }
 
     @Override

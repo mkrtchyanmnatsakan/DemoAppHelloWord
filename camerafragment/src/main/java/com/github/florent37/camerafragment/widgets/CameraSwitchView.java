@@ -3,12 +3,10 @@ package com.github.florent37.camerafragment.widgets;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
-import android.view.View;
 
 import com.github.florent37.camerafragment.R;
 import com.github.florent37.camerafragment.internal.utils.Utils;
@@ -37,11 +35,11 @@ public class CameraSwitchView extends AppCompatImageButton {
 
     private void initializeView() {
         Context context = getContext();
-        frontCameraDrawable = ContextCompat.getDrawable(context, R.drawable.ic_camera_front_white_24dp);
+        frontCameraDrawable = ContextCompat.getDrawable(context, R.drawable.camera_switch_copy);
         frontCameraDrawable = DrawableCompat.wrap(frontCameraDrawable);
         DrawableCompat.setTintList(frontCameraDrawable.mutate(), ContextCompat.getColorStateList(context, R.drawable.switch_camera_mode_selector));
 
-        rearCameraDrawable = ContextCompat.getDrawable(context, R.drawable.ic_camera_rear_white_24dp);
+        rearCameraDrawable = ContextCompat.getDrawable(context, R.drawable.camera_switch_copy);
         rearCameraDrawable = DrawableCompat.wrap(rearCameraDrawable);
         DrawableCompat.setTintList(rearCameraDrawable.mutate(), ContextCompat.getColorStateList(context, R.drawable.switch_camera_mode_selector));
 
