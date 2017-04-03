@@ -488,26 +488,26 @@ public abstract class BaseAnncaFragment<CameraId> extends Fragment implements Ca
     @Override
     public void toggleFlashMode() {
         switch (currentFlashMode) {
-            case Flash.FLASH_AUTO:
+            case Flash.FLASH_ON:
                 currentFlashMode = Flash.FLASH_OFF;
                 break;
             case Flash.FLASH_OFF:
                 currentFlashMode = Flash.FLASH_ON;
                 break;
-            case Flash.FLASH_ON:
-                currentFlashMode = Flash.FLASH_AUTO;
-                break;
+//            case Flash.FLASH_ON:
+//                currentFlashMode = Flash.FLASH_AUTO;
+//                break;
         }
         onFlashModeChanged();
     }
 
     private void onFlashModeChanged() {
         switch (currentFlashMode) {
-            case Flash.FLASH_AUTO:
-                if (cameraFragmentStateListener != null) cameraFragmentStateListener.onFlashAuto();
-                configurationProvider.setFlashMode(Configuration.FLASH_MODE_AUTO);
-                this.cameraController.setFlashMode(Configuration.FLASH_MODE_AUTO);
-                break;
+//            case Flash.FLASH_AUTO:
+//                if (cameraFragmentStateListener != null) cameraFragmentStateListener.onFlashAuto();
+//                configurationProvider.setFlashMode(Configuration.FLASH_MODE_AUTO);
+//                this.cameraController.setFlashMode(Configuration.FLASH_MODE_AUTO);
+//                break;
             case Flash.FLASH_ON:
                 if (cameraFragmentStateListener != null) cameraFragmentStateListener.onFlashOn();
                 configurationProvider.setFlashMode(Configuration.FLASH_MODE_ON);

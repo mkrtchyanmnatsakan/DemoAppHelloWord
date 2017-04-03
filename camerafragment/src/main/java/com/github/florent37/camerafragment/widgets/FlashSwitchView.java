@@ -9,7 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
 
-import com.github.florent37.camerafragment.R;
+import static com.github.florent37.camerafragment.R.drawable;
 
 
 /*
@@ -18,7 +18,7 @@ import com.github.florent37.camerafragment.R;
 public class FlashSwitchView extends ImageButton {
 
     private Drawable flashOnDrawable;
-   // private Drawable flashOffDrawable;
+    private Drawable flashOffDrawable;
    // private Drawable flashAutoDrawable;
 
     public FlashSwitchView(@NonNull Context context) {
@@ -27,8 +27,9 @@ public class FlashSwitchView extends ImageButton {
 
     public FlashSwitchView(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
-        flashOnDrawable = ContextCompat.getDrawable(context, R.drawable.camera_flash);
-     //   flashOffDrawable = ContextCompat.getDrawable(context, R.drawable.ic_flash_off_white_24dp);
+        flashOnDrawable = ContextCompat.getDrawable(context, drawable.camera_flash);
+        flashOffDrawable = ContextCompat.getDrawable(context, drawable.camera_flash);
+     //  flashOffDrawable.setColorFilter(context.getColor(color.colorPrimaryDark));
       //  flashAutoDrawable = ContextCompat.getDrawable(context, R.drawable.ic_flash_auto_white_24dp);
         init();
     }
@@ -38,9 +39,9 @@ public class FlashSwitchView extends ImageButton {
         displayFlashOn();
     }
 
-//    public void displayFlashOff() {
-//        setImageDrawable(flashOffDrawable);
-//    }
+    public void displayFlashOff() {
+        setImageDrawable(flashOffDrawable);
+    }
 
     public void displayFlashOn() {
         setImageDrawable(flashOnDrawable);
